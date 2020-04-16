@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchText } from "../redux/actions/typerActions";
+import { Box } from "@material-ui/core";
 
 class Typer extends React.Component {
   componentDidMount() {
@@ -8,7 +9,16 @@ class Typer extends React.Component {
   }
 
   render() {
-    return <div>{this.props.text.quote}</div>;
+    return (
+      <Box
+        style={{ margin: "16px", borderRadius: "4px" }}
+        bgcolor="text.primary"
+        color="background.paper"
+        p={2}
+      >
+        “{this.props.text.quote}” - {this.props.text.source}
+      </Box>
+    );
   }
 }
 
