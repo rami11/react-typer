@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Typer from "./Typer";
+import Typer from "../components/typer/Typer";
 import { Container } from "@material-ui/core";
 
 class App extends React.Component {
