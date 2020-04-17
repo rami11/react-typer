@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchText } from "../../redux/actions/typerActions";
+import { fetchText, nextChar } from "../../redux/actions/typerActions";
 import TextBlock from "./TextBlock";
 
 class Typer extends React.Component {
@@ -21,7 +21,7 @@ class Typer extends React.Component {
         id="type"
         tabIndex="0"
         autoFocus
-        onKeyPress={() => console.log("key pressed!")}
+        onKeyPress={() => this.props.nextChar(this.props.currentCharIndex)}
       >
         <TextBlock
           currentCharIndex={this.props.currentCharIndex}
@@ -39,4 +39,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchText })(Typer);
+export default connect(mapStateToProps, { fetchText, nextChar })(Typer);
