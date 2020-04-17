@@ -4,18 +4,34 @@ import { fetchText } from "../../redux/actions/typerActions";
 import TextBlock from "./TextBlock";
 
 class Typer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
+
   componentDidMount() {
     this.props.fetchText();
+    this.ref.current.focus();
   }
 
   render() {
-    return <TextBlock text={this.props.text} />;
+    return (
+      <div
+        ref={this.ref}
+        id="type"
+        tabIndex="0"
+        autoFocus
+        onKeyPress={() => console.log("key pressed!")}
+      >
+        <TextBlock text={this.props.text} />
+      </div>
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    text: state.typer.text,
+    text: state.typer.text
   };
 };
 
