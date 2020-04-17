@@ -5,9 +5,7 @@ import { AppBar, Toolbar, makeStyles } from "@material-ui/core";
 const Header = () => {
   return (
     <AppBar position="static">
-      <Toolbar variant="dense">
-        <GoogleAuth />
-      </Toolbar>
+      <Toolbar variant="dense">{/* <GoogleAuth /> */}</Toolbar>
     </AppBar>
   );
 };

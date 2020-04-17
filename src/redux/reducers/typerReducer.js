@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   text: "",
+  currentCharIndex: 0,
 };
 
 export default (state = INITIAL_STATE, action) => {

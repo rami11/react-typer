@@ -2,18 +2,28 @@ import React from "react";
 import { Box } from "@material-ui/core";
 
 class TextBlock extends React.Component {
-  populateContent = (text) => {
-    const quote = text.quote.split("").map((letter) => {
-      return <span key={letter}>{letter}</span>;
+  populateContent = text => {
+    const quote = text.quote.split("").map((letter, index) => {
+      let style = {};
+      if (index === this.props.currentCharIndex) {
+        style = { ...style, textDecoration: "underline" };
+      }
+      return (
+        <span style={style} key={index}>
+          {letter}
+        </span>
+      );
     });
+
     return (
-      <div>
+      <React.Fragment>
         “{quote}” - {text.source}
-      </div>
+      </React.Fragment>
     );
   };
 
   render() {
+    console.log(this.props.currentCharIndex);
     if (!this.props.text) {
       return <div>Loading...</div>;
     }

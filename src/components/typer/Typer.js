@@ -23,7 +23,10 @@ class Typer extends React.Component {
         autoFocus
         onKeyPress={() => console.log("key pressed!")}
       >
-        <TextBlock text={this.props.text} />
+        <TextBlock
+          currentCharIndex={this.props.currentCharIndex}
+          text={this.props.text}
+        />
       </div>
     );
   }
@@ -31,7 +34,8 @@ class Typer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    text: state.typer.text
+    text: state.typer.text,
+    currentCharIndex: state.typer.currentCharIndex
   };
 };
 
