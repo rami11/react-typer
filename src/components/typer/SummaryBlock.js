@@ -11,7 +11,8 @@ class SummaryBlock extends React.Component {
         color="background.paper"
         p={2}
       >
-        Errors: {this.props.errorCount}
+        Errors: {this.props.errorCount}, Accuracy:{" "}
+        {this.props.accuracyPercentage}%
       </Box>
     );
   }
@@ -20,6 +21,7 @@ class SummaryBlock extends React.Component {
 const mapStateToProps = (state) => {
   return {
     errorCount: state.typer.errorCount,
+    accuracyPercentage: state.typer.accuracyPercentage,
   };
 };
 

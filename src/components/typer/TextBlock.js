@@ -11,14 +11,14 @@ class TextBlock extends React.Component {
         style = { ...style, textDecoration: "underline" };
       }
 
-      let prevStyle;
+      let charStyle;
       if (this.props.isVisited[index]) {
-        prevStyle = this.props.isSuccess[index]
+        charStyle = this.props.isSuccess[index]
           ? { color: "green" }
           : { backgroundColor: "red" };
       }
 
-      style = { ...style, ...prevStyle };
+      style = { ...style, ...charStyle };
 
       return (
         <span style={style} key={index}>
