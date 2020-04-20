@@ -12,7 +12,7 @@ class SummaryBlock extends React.Component {
         p={2}
       >
         Errors: {this.props.errorCount}, Accuracy:{" "}
-        {this.props.accuracyPercentage}%, Speed: {this.props.speed}
+        {this.props.accuracyPercentage}%, Speed: {this.props.speed} CPM
       </Box>
     );
   }
