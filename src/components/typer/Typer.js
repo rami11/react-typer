@@ -9,10 +9,10 @@ class Typer extends React.Component {
     this.ref = React.createRef();
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.fetchText();
     this.ref.current.focus();
-  }
+  };
 
   render() {
     return (
@@ -21,21 +21,27 @@ class Typer extends React.Component {
         id="type"
         tabIndex="0"
         autoFocus
-        onKeyPress={() => this.props.nextChar(this.props.currentCharIndex)}
+        onKeyPress={(event) => {
+          const keyPressed = event.key;
+          this.props.nextChar(keyPressed);
+          if (this.props.quote[this.props.currentCharIndex] === keyPressed) {
+            console.log("sucess!");
+          } else {
+            console.log("fail!");
+          }
+        }}
       >
-        <TextBlock
-          currentCharIndex={this.props.currentCharIndex}
-          text={this.props.text}
-        />
+        <TextBlock />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    text: state.typer.text,
-    currentCharIndex: state.typer.currentCharIndex
+    quote: state.typer.quote,
+    source: state.typer.source,
+    currentCharIndex: state.typer.currentCharIndex,
   };
 };
 

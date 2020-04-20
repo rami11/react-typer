@@ -1,6 +1,5 @@
 import React from "react";
-import GoogleAuth from "./GoogleAuth";
-import { AppBar, Toolbar, makeStyles } from "@material-ui/core";
+import { AppBar, Toolbar } from "@material-ui/core";
 
 const Header = () => {
   return (

@@ -1,10 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Box } from "@material-ui/core";
 
 class TextBlock extends React.Component {
-  populateContent = text => {
-    const quote = text.quote.split("").map((letter, index) => {
+  populateContent = (quote, source) => {
+    const quote1 = Object.values(quote).map((letter, index) => {
       let style = {};
+
       if (index === this.props.currentCharIndex) {
         style = { ...style, textDecoration: "underline" };
       }
@@ -17,14 +19,14 @@ class TextBlock extends React.Component {
 
     return (
       <React.Fragment>
-        “{quote}” - {text.source}
+        “{quote1}” - {source}
       </React.Fragment>
     );
   };
 
   render() {
-    console.log(this.props.currentCharIndex);
-    if (!this.props.text) {
+    console.log("is success", this.props.isSuccess);
+    if (!this.props.quote) {
       return <div>Loading...</div>;
     }
 
@@ -35,10 +37,19 @@ class TextBlock extends React.Component {
         color="background.paper"
         p={2}
       >
-        {this.populateContent(this.props.text)}
+        {this.populateContent(this.props.quote, this.props.source)}
       </Box>
     );
   }
 }
 
-export default TextBlock;
+const mapStateToProps = (state) => {
+  return {
+    currentCharIndex: state.typer.currentCharIndex,
+    quote: state.typer.quote,
+    source: state.typer.source,
+    isSuccess: state.typer.isSuccess,
+  };
+};
+
+export default connect(mapStateToProps)(TextBlock);
