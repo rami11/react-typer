@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   currentCharIndex: 0,
   isSuccess: [],
   isVisited: [],
+  errorCount: 0,
 };
 
 export default (state = INITIAL_STATE, action) => {

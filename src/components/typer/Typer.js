@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchText, nextChar } from "../../redux/actions/typerActions";
 import TextBlock from "./TextBlock";
+import SummaryBlock from "./SummaryBlock";
 
 class Typer extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class Typer extends React.Component {
         autoFocus
         onKeyPress={(event) => this.props.nextChar(event.key)}
       >
+        <SummaryBlock />
         <TextBlock />
       </div>
     );

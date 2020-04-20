@@ -12,9 +12,9 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
   console.log(getState().typer);
   let currentCharIndex = getState().typer.currentCharIndex;
 
-  getState().typer.isSuccess.push(
-    getState().typer.quote[currentCharIndex] === keyPressed
-  );
+  let isSuccess = getState().typer.quote[currentCharIndex] === keyPressed;
+  if (!isSuccess) ++getState().typer.errorCount;
+  getState().typer.isSuccess.push(isSuccess);
 
   getState().typer.isVisited.push(true);
 
