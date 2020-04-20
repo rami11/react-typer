@@ -10,6 +10,16 @@ class TextBlock extends React.Component {
       if (index === this.props.currentCharIndex) {
         style = { ...style, textDecoration: "underline" };
       }
+
+      let prevStyle;
+      if (this.props.isVisited[index]) {
+        prevStyle = this.props.isSuccess[index]
+          ? { color: "green" }
+          : { backgroundColor: "red" };
+      }
+
+      style = { ...style, ...prevStyle };
+
       return (
         <span style={style} key={index}>
           {letter}
@@ -25,7 +35,6 @@ class TextBlock extends React.Component {
   };
 
   render() {
-    console.log("is success", this.props.isSuccess);
     if (!this.props.quote) {
       return <div>Loading...</div>;
     }
@@ -46,9 +55,11 @@ class TextBlock extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentCharIndex: state.typer.currentCharIndex,
+    prevCharIndex: state.typer.prevCharIndex,
     quote: state.typer.quote,
     source: state.typer.source,
     isSuccess: state.typer.isSuccess,
+    isVisited: state.typer.isVisited,
   };
 };
 

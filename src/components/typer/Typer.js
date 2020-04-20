@@ -12,24 +12,16 @@ class Typer extends React.Component {
   componentDidMount = () => {
     this.props.fetchText();
     this.ref.current.focus();
+    console.log("quote", this.props.quote);
   };
 
   render() {
     return (
       <div
         ref={this.ref}
-        id="type"
         tabIndex="0"
         autoFocus
-        onKeyPress={(event) => {
-          const keyPressed = event.key;
-          this.props.nextChar(keyPressed);
-          if (this.props.quote[this.props.currentCharIndex] === keyPressed) {
-            console.log("sucess!");
-          } else {
-            console.log("fail!");
-          }
-        }}
+        onKeyPress={(event) => this.props.nextChar(event.key)}
       >
         <TextBlock />
       </div>
@@ -39,8 +31,6 @@ class Typer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    quote: state.typer.quote,
-    source: state.typer.source,
     currentCharIndex: state.typer.currentCharIndex,
   };
 };

@@ -11,12 +11,17 @@ export const fetchText = () => async (dispatch) => {
 export const nextChar = (keyPressed) => async (dispatch, getState) => {
   console.log(getState().typer);
   let currentCharIndex = getState().typer.currentCharIndex;
-  let prevCharIndex = currentCharIndex;
-  let isSuccess = getState().typer.quote[currentCharIndex] === keyPressed;
+
+  getState().typer.isSuccess.push(
+    getState().typer.quote[currentCharIndex] === keyPressed
+  );
+
+  getState().typer.isVisited.push(true);
+
   const payload = {
-    prevCharIndex,
     currentCharIndex: ++currentCharIndex,
-    isSuccess,
+    isSuccess: getState().typer.isSuccess,
+    isVisited: getState().typer.isVisited,
   };
   dispatch({ type: NEXT_CHAR, payload });
 };

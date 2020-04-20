@@ -3,8 +3,8 @@ const INITIAL_STATE = {
   quote: null,
   source: "",
   currentCharIndex: 0,
-  prevCharIndex: 0,
-  isSuccess: false,
+  isSuccess: [],
+  isVisited: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,9 +16,9 @@ export default (state = INITIAL_STATE, action) => {
     case NEXT_CHAR:
       return {
         ...state,
-        prevCharIndex: action.payload.prevCharIndex,
         currentCharIndex: action.payload.currentCharIndex,
         isSuccess: action.payload.isSuccess,
+        isVisited: action.payload.isVisited,
       };
     default:
       return state;
