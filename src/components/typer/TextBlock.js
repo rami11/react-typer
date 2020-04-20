@@ -3,33 +3,37 @@ import { connect } from "react-redux";
 import { Box } from "@material-ui/core";
 
 class TextBlock extends React.Component {
+  renderChar = (char, index) => {
+    let style = {};
+
+    if (index === this.props.currentCharIndex) {
+      style = { ...style, textDecoration: "underline" };
+    }
+
+    let charStyle;
+    if (this.props.isVisited[index]) {
+      charStyle = this.props.isSuccess[index]
+        ? { color: "lightgreen" }
+        : { backgroundColor: "red" };
+    }
+
+    style = { ...style, ...charStyle };
+
+    return (
+      <span style={style} key={index}>
+        {char}
+      </span>
+    );
+  };
+
   populateContent = (quote, source) => {
-    const quote1 = Object.values(quote).map((letter, index) => {
-      let style = {};
-
-      if (index === this.props.currentCharIndex) {
-        style = { ...style, textDecoration: "underline" };
-      }
-
-      let charStyle;
-      if (this.props.isVisited[index]) {
-        charStyle = this.props.isSuccess[index]
-          ? { color: "lightgreen" }
-          : { backgroundColor: "red" };
-      }
-
-      style = { ...style, ...charStyle };
-
-      return (
-        <span style={style} key={index}>
-          {letter}
-        </span>
-      );
-    });
+    const chars = Object.values(quote).map((char, index) =>
+      this.renderChar(char, index)
+    );
 
     return (
       <React.Fragment>
-        “{quote1}” - {source}
+        “{chars}” - {source}
       </React.Fragment>
     );
   };
