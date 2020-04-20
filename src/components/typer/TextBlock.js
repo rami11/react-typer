@@ -14,7 +14,7 @@ class TextBlock extends React.Component {
       let charStyle;
       if (this.props.isVisited[index]) {
         charStyle = this.props.isSuccess[index]
-          ? { color: "green" }
+          ? { color: "lightgreen" }
           : { backgroundColor: "red" };
       }
 

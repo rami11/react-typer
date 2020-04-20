@@ -1,4 +1,5 @@
 import { FETCH_TEXT, NEXT_CHAR } from "../actions/types";
+
 const INITIAL_STATE = {
   quote: null,
   source: "",
@@ -9,6 +10,8 @@ const INITIAL_STATE = {
   charSuccessCount: 0,
   charTypedCount: 0,
   accuracyPercentage: 0,
+  initTime: Date.now(),
+  speed: 0,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,6 +27,7 @@ export default (state = INITIAL_STATE, action) => {
         isSuccess: action.payload.isSuccess,
         isVisited: action.payload.isVisited,
         accuracyPercentage: action.payload.accuracyPercentage,
+        speed: action.payload.speed,
       };
     default:
       return state;

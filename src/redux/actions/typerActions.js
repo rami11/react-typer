@@ -30,10 +30,20 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
       getState().typer.charSuccessCount,
       getState().typer.charTypedCount
     ),
+    speed: calcSpeed(
+      getState().typer.initTime,
+      getState().typer.charSuccessCount
+    ),
   };
   dispatch({ type: NEXT_CHAR, payload });
 };
 
 const calcAccuracyPercentage = (charSuccessCount, charTypedCount) => {
   return Math.round((charSuccessCount / charTypedCount) * 100);
+};
+
+const calcSpeed = (initTime, charSuccessCount) => {
+  const intervalSec = (Date.now() - initTime) / 1000;
+  const speed = Math.ceil((charSuccessCount * 60) / intervalSec);
+  return speed;
 };

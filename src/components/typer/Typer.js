@@ -13,7 +13,6 @@ class Typer extends React.Component {
   componentDidMount = () => {
     this.props.fetchText();
     this.ref.current.focus();
-    console.log("quote", this.props.quote);
   };
 
   render() {
