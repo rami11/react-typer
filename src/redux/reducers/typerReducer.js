@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   accuracyPercentage: 0,
   initTime: Date.now(),
   speed: 0,
+  isTextEndReached: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,6 +29,7 @@ export default (state = INITIAL_STATE, action) => {
         isVisited: action.payload.isVisited,
         accuracyPercentage: action.payload.accuracyPercentage,
         speed: action.payload.speed,
+        isTextEndReached: action.payload.isTextEndReached,
       };
     default:
       return state;

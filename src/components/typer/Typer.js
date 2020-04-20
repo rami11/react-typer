@@ -12,7 +12,16 @@ class Typer extends React.Component {
 
   componentDidMount = () => {
     this.props.fetchText();
-    this.ref.current.focus();
+    this.setFocus(true);
+  };
+
+  setFocus = (value) => {
+    if (!value) {
+      this.ref.current.removeAttribute("tabindex");
+    } else {
+      this.ref.current.setAttribute("tabindex", 0);
+      this.ref.current.focus();
+    }
   };
 
   render() {
@@ -21,7 +30,10 @@ class Typer extends React.Component {
         ref={this.ref}
         tabIndex="0"
         autoFocus
-        onKeyPress={(event) => this.props.nextChar(event.key)}
+        onKeyPress={(event) => {
+          this.props.nextChar(event.key);
+          this.setFocus(!this.props.isTextEndReached);
+        }}
       >
         <SummaryBlock />
         <TextBlock />
@@ -33,6 +45,7 @@ class Typer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentCharIndex: state.typer.currentCharIndex,
+    isTextEndReached: state.typer.isTextEndReached,
   };
 };
 

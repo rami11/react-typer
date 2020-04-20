@@ -9,9 +9,10 @@ export const fetchText = () => async (dispatch) => {
 };
 
 export const nextChar = (keyPressed) => async (dispatch, getState) => {
-  const currentCharIndex = getState().typer.currentCharIndex;
+  let currentCharIndex = getState().typer.currentCharIndex;
+  const quote = getState().typer.quote;
 
-  let isSuccess = getState().typer.quote[currentCharIndex] === keyPressed;
+  let isSuccess = quote[currentCharIndex] === keyPressed;
   if (!isSuccess) {
     ++getState().typer.errorCount;
   } else {
@@ -34,6 +35,7 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
       getState().typer.initTime,
       getState().typer.charSuccessCount
     ),
+    isTextEndReached: ++currentCharIndex >= Object.values(quote).length - 1,
   };
   dispatch({ type: NEXT_CHAR, payload });
 };
