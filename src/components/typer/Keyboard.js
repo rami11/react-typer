@@ -1,41 +1,80 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { createUseStyles } from "react-jss";
+import { nextChar, setKeyCode } from "../../redux/actions/typerActions";
+import { connect } from "react-redux";
 import Key from "./Key";
 
-const btnStyle = {
-  display: "inline-block",
-  width: "30px",
-  backgroundColor: "white",
-  borderRadius: 2,
-  fontSize: ".7em",
-  padding: "0 6px",
-  margin: 2,
-  border: "1px solid grey",
-  textAlign: "left",
-};
-
-const useStyles = createUseStyles({
-  keyboard: {
-    textAlign: "center",
-    backgroundColor: "#f5f5f5",
-    width: "522px",
+const Keyboard = (props) => {
+  const btnStyle = {
+    display: "inline-block",
+    width: "30px",
+    backgroundColor: "white",
+    borderRadius: 2,
+    fontSize: ".7em",
+    padding: "0 6px",
+    margin: 2,
     border: "1px solid grey",
-    borderRadius: "2px",
-    padding: "4px",
-    margin: "auto",
-  },
-  btn: btnStyle,
-  btnTab: { ...btnStyle, width: "60px" },
-  btnEnter: { ...btnStyle, width: "63px" },
-  btnShift: { ...btnStyle, width: "80px" },
-  btnCtl: { ...btnStyle, width: "35px" },
-  btnSpace: { ...btnStyle, width: "150px" },
-});
+    textAlign: "left",
+    fontWeight: "bold",
+  };
 
-const Keyboard = () => {
+  const useStyles = createUseStyles({
+    keyboard: {
+      textAlign: "center",
+      backgroundColor: "#f5f5f5",
+      width: "522px",
+      border: "1px solid grey",
+      borderRadius: "2px",
+      padding: "4px",
+      margin: "auto",
+    },
+    btn: btnStyle,
+    btnTab: { ...btnStyle, width: "60px" },
+    btnEnter: { ...btnStyle, width: "63px" },
+    btnShift: { ...btnStyle, width: "80px" },
+    btnCtl: { ...btnStyle, width: "35px" },
+    btnSpace: { ...btnStyle, width: "150px" },
+  });
+
+  const setFocus = (isFocus) => {
+    if (isFocus) {
+      keyboardRef.current.setAttribute("tabindex", 0);
+      keyboardRef.current.focus();
+    } else {
+      keyboardRef.current.removeAttribute("tabindex");
+    }
+  };
+
+  useEffect(() => {
+    setFocus(true);
+  });
+
+  const handleKeyPress = (event) => {
+    props.nextChar(event.key);
+    setFocus(!props.isTextEndReached);
+  };
+
+  const handleKeyUp = (event) => {
+    props.setKeyCode(null);
+  };
+
+  const handleKeyDown = (event) => {
+    console.log(event);
+    props.setKeyCode(event.keyCode);
+  };
+
+  const keyboardRef = useRef();
+
   const classes = useStyles();
+
   return (
-    <div className={classes.keyboard}>
+    <div
+      ref={keyboardRef}
+      onKeyPress={handleKeyPress}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      className={classes.keyboard}
+    >
       {/*First Row*/}
       <div>
         <Key keyCode={192} className={classes.btn} char1="~" char2="`" />
@@ -172,4 +211,10 @@ const Keyboard = () => {
   );
 };
 
-export default Keyboard;
+const mapStateToProps = (state) => {
+  return {
+    isTextEndReached: state.typer.isTextEndReached,
+  };
+};
+
+export default connect(mapStateToProps, { nextChar, setKeyCode })(Keyboard);
