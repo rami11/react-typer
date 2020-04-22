@@ -1,6 +1,5 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
-import { connect } from "react-redux";
 import Key from "./Key";
 
 const btnStyle = {
@@ -33,8 +32,8 @@ const useStyles = createUseStyles({
   btnSpace: { ...btnStyle, width: "150px" },
 });
 
-const Keyboard = ({ keyCode }) => {
-  const classes = useStyles(keyCode);
+const Keyboard = () => {
+  const classes = useStyles();
   return (
     <div className={classes.keyboard}>
       {/*First Row*/}
@@ -173,10 +172,4 @@ const Keyboard = ({ keyCode }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    keyCode: state.typer.keyCode,
-  };
-};
-
-export default connect(mapStateToProps)(Keyboard);
+export default Keyboard;
