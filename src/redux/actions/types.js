@@ -4,3 +4,4 @@ export const SIGN_OUT = "SIGN_OUT";
 //typer
 export const FETCH_TEXT = "FETCH_TEXT";
 export const NEXT_CHAR = "NEXT_CHAR";
+export const SET_KEYCODE = "SET_KEYCODE";

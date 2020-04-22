@@ -1,4 +1,4 @@
-import { FETCH_TEXT, NEXT_CHAR } from "./types";
+import { FETCH_TEXT, NEXT_CHAR, SET_KEYCODE } from "./types";
 
 const baseUrl = "http://localhost:5000";
 
@@ -48,4 +48,8 @@ const calcSpeed = (initTime, charSuccessCount) => {
   const intervalSec = (Date.now() - initTime) / 1000;
   const speed = Math.ceil((charSuccessCount * 60) / intervalSec);
   return speed;
+};
+
+export const setKeyCode = (keyCode) => (dispatch) => {
+  dispatch({ type: SET_KEYCODE, payload: keyCode });
 };

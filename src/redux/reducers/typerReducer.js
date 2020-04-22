@@ -1,6 +1,7 @@
-import { FETCH_TEXT, NEXT_CHAR } from "../actions/types";
+import { FETCH_TEXT, NEXT_CHAR, SET_KEYCODE } from "../actions/types";
 
-const INITIAL_STATE = {
+const initialState = {
+  keyCode: null,
   quote: null,
   source: "",
   currentCharIndex: 0,
@@ -15,7 +16,7 @@ const INITIAL_STATE = {
   isTextEndReached: false,
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TEXT:
       const quote = { ...action.payload.quote };
@@ -31,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
         speed: action.payload.speed,
         isTextEndReached: action.payload.isTextEndReached,
       };
+    case SET_KEYCODE:
+      return { ...state, keyCode: action.payload };
     default:
       return state;
   }
