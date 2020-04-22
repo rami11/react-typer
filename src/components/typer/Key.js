@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 const Key = (props) => {
   let s = {};
   if (props.currentKeyCode === props.keyCode) {
-    s = { ...s, color: "white", backgroundColor: "lightblue" };
+    s = { ...s, color: "white", backgroundColor: "#3F51B5" };
   }
   return (
     <div key={props.keyCode} className={props.className} style={s}>
