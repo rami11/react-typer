@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 const Key = (props) => {
   let s = {};
-  if (props.currentKeyCode === props.keyCode) {
+  if (props.activeKeyCode === props.code) {
     s = { ...s, color: "white", backgroundColor: "#3F51B5" };
   }
   return (
@@ -16,7 +16,7 @@ const Key = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentKeyCode: state.typer.keyCode,
+    activeKeyCode: state.typer.activeKeyCode,
   };
 };
 
