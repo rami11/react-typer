@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Typer from "../components/typer/Typer";
-import { Container } from "@material-ui/core";
+import TyperPage from "../pages/TyperPage";
 import { ThemeProvider } from "react-jss";
 
 const theme = {
@@ -14,9 +13,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Header></Header>
-        <Container maxWidth="sm">
-          <Route to="/" component={Typer} />
-        </Container>
+        <Route to="/" component={TyperPage} />
       </Router>
     </ThemeProvider>
   );

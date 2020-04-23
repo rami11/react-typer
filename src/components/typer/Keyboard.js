@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { nextChar, setKeyCode } from "../../redux/actions/typerActions";
 import { connect } from "react-redux";
@@ -36,22 +36,13 @@ const Keyboard = (props) => {
     btnSpace: { ...btnStyle, width: "150px" },
   });
 
-  const setFocus = (isFocus) => {
-    if (isFocus) {
-      keyboardRef.current.setAttribute("tabindex", 0);
-      keyboardRef.current.focus();
-    } else {
-      keyboardRef.current.removeAttribute("tabindex");
-    }
-  };
-
   useEffect(() => {
-    setFocus(true);
+    props.setFocus(true);
   });
 
   const handleKeyPress = (event) => {
     props.nextChar(event.key);
-    setFocus(!props.isTextEndReached);
+    props.setFocus(!props.isTextEndReached);
   };
 
   const handleKeyUp = (event) => {
@@ -63,13 +54,12 @@ const Keyboard = (props) => {
     props.setKeyCode(event.keyCode);
   };
 
-  const keyboardRef = useRef();
-
   const classes = useStyles();
 
   return (
     <div
-      ref={keyboardRef}
+      ref={props.setRef}
+      tabIndex={0}
       onKeyPress={handleKeyPress}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}

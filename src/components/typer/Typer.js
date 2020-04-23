@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchText } from "../../redux/actions/typerActions";
 
@@ -7,22 +8,20 @@ import SummaryBlock from "./SummaryBlock";
 import Keyboard from "./Keyboard";
 
 class Typer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.keyboardRef = React.createRef();
-  }
-
   componentDidMount = () => {
     this.props.fetchText();
   };
 
   render() {
     return (
-      <div onClick={this.handleClick}>
+      <Container onClick={this.handleClick} maxWidth="sm">
         <SummaryBlock />
-        <Keyboard />
+        <Keyboard
+          setFocus={this.props.setKeyboardFocus}
+          setRef={this.props.setRef}
+        />
         <TextBlock />
-      </div>
+      </Container>
     );
   }
 }
