@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "./common/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import TyperPage from "../pages/TyperPage";
 import { ThemeProvider } from "react-jss";
