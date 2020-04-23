@@ -7,7 +7,6 @@ class TyperPage extends React.Component {
   };
 
   setKeyboardFocus = (isFocus) => {
-    console.log(isFocus);
     if (isFocus) {
       this.ref.focus();
     } else {
@@ -21,10 +20,7 @@ class TyperPage extends React.Component {
 
   render() {
     return (
-      <div
-        onClick={this.handleClick}
-        style={{ width: "100%", height: "100%", border: "1px solid" }}
-      >
+      <div onClick={this.handleClick} style={{ width: "100%" }}>
         <Typer setKeyboardFocus={this.setKeyboardFocus} setRef={this.setRef} />
       </div>
     );
