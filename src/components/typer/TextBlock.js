@@ -60,7 +60,6 @@ class TextBlock extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentCharIndex: state.typer.currentCharIndex,
-    prevCharIndex: state.typer.prevCharIndex,
     quote: state.typer.quote,
     source: state.typer.source,
     isSuccess: state.typer.isSuccess,
