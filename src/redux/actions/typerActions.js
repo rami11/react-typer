@@ -1,4 +1,4 @@
-import { FETCH_TEXT, NEXT_CHAR, SET_KEYCODE } from "./types";
+import { FETCH_TEXT, NEXT_CHAR, KEY_PRESSED, KEY_RELEASED } from "./types";
 
 const baseUrl = "http://localhost:5000";
 
@@ -50,6 +50,10 @@ const calcSpeed = (initTime, charSuccessCount) => {
   return speed;
 };
 
-export const setKeyCode = (keyCode) => (dispatch) => {
-  dispatch({ type: SET_KEYCODE, payload: keyCode });
+export const keyPressed = (code) => (dispatch) => {
+  dispatch({ type: KEY_PRESSED, payload: code });
+};
+
+export const keyReleased = (code) => (dispatch) => {
+  dispatch({ type: KEY_RELEASED, payload: code });
 };

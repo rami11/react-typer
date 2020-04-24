@@ -1,41 +1,45 @@
 import React, { useEffect } from "react";
 import { createUseStyles } from "react-jss";
-import { nextChar, setKeyCode } from "../../redux/actions/typerActions";
+import {
+  nextChar,
+  keyPressed,
+  keyReleased,
+} from "../../redux/actions/typerActions";
 import { connect } from "react-redux";
 import Key from "./Key";
 
-const Keyboard = (props) => {
-  const btnStyle = {
-    display: "inline-block",
-    width: "30px",
-    backgroundColor: "white",
-    borderRadius: 2,
-    fontSize: ".7em",
-    padding: "0 6px",
-    margin: 2,
+const btnStyle = {
+  display: "inline-block",
+  width: "30px",
+  backgroundColor: "white",
+  borderRadius: 2,
+  fontSize: ".7em",
+  padding: "0 6px",
+  margin: 2,
+  border: "1px solid grey",
+  textAlign: "left",
+  fontWeight: "bold",
+};
+
+const useStyles = createUseStyles({
+  keyboard: {
+    textAlign: "center",
+    backgroundColor: "#f5f5f5",
+    width: "522px",
     border: "1px solid grey",
-    textAlign: "left",
-    fontWeight: "bold",
-  };
+    borderRadius: "2px",
+    padding: "4px",
+    margin: "auto",
+  },
+  btn: btnStyle,
+  btnTab: { ...btnStyle, width: "60px" },
+  btnEnter: { ...btnStyle, width: "63px" },
+  btnShift: { ...btnStyle, width: "80px" },
+  btnCtl: { ...btnStyle, width: "35px" },
+  btnSpace: { ...btnStyle, width: "150px" },
+});
 
-  const useStyles = createUseStyles({
-    keyboard: {
-      textAlign: "center",
-      backgroundColor: "#f5f5f5",
-      width: "522px",
-      border: "1px solid grey",
-      borderRadius: "2px",
-      padding: "4px",
-      margin: "auto",
-    },
-    btn: btnStyle,
-    btnTab: { ...btnStyle, width: "60px" },
-    btnEnter: { ...btnStyle, width: "63px" },
-    btnShift: { ...btnStyle, width: "80px" },
-    btnCtl: { ...btnStyle, width: "35px" },
-    btnSpace: { ...btnStyle, width: "150px" },
-  });
-
+const Keyboard = (props) => {
   useEffect(() => {
     props.setFocus(!props.isTextEndReached);
   });
@@ -45,12 +49,13 @@ const Keyboard = (props) => {
   };
 
   const handleKeyUp = (e) => {
-    props.setKeyCode(null);
+    const { code } = e.nativeEvent;
+    props.keyReleased(code);
   };
 
   const handleKeyDown = (e) => {
     const { code } = e.nativeEvent;
-    props.setKeyCode(code);
+    props.keyPressed(code);
   };
 
   const classes = useStyles();
@@ -206,4 +211,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { nextChar, setKeyCode })(Keyboard);
+export default connect(mapStateToProps, {
+  nextChar,
+  keyPressed,
+  keyReleased,
+})(Keyboard);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 const Key = (props) => {
   let s = {};
-  if (props.activeKeyCode === props.code) {
+  if (props.isKeyPressed) {
     s = { ...s, color: "white", backgroundColor: "#3F51B5" };
   }
   return (
@@ -14,9 +14,9 @@ const Key = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    activeKeyCode: state.typer.activeKeyCode,
+    isKeyPressed: state.typer.keys[ownProps.code],
   };
 };
 

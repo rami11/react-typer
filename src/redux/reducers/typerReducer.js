@@ -1,7 +1,12 @@
-import { FETCH_TEXT, NEXT_CHAR, SET_KEYCODE } from "../actions/types";
+import {
+  FETCH_TEXT,
+  NEXT_CHAR,
+  KEY_PRESSED,
+  KEY_RELEASED,
+} from "../actions/types";
 
 const initialState = {
-  activeKeyCode: null,
+  keys: {},
   quote: null,
   source: "",
   currentCharIndex: 0,
@@ -32,8 +37,12 @@ export default (state = initialState, action) => {
         speed: action.payload.speed,
         isTextEndReached: action.payload.isTextEndReached,
       };
-    case SET_KEYCODE:
-      return { ...state, activeKeyCode: action.payload };
+    case KEY_PRESSED:
+      state.keys[action.payload] = true;
+      return { ...state, keys: state.keys };
+    case KEY_RELEASED:
+      state.keys[action.payload] = false;
+      return { ...state, keys: state.keys };
     default:
       return state;
   }
