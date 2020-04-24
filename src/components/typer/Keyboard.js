@@ -37,12 +37,11 @@ const Keyboard = (props) => {
   });
 
   useEffect(() => {
-    props.setFocus(true);
+    props.setFocus(!props.isTextEndReached);
   });
 
   const handleKeyPress = (e) => {
     props.nextChar(e.key);
-    props.setFocus(!props.isTextEndReached);
   };
 
   const handleKeyUp = (e) => {
