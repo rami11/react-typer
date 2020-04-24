@@ -35,7 +35,7 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
       getState().typer.initTime,
       getState().typer.charSuccessCount
     ),
-    isTextEndReached: ++currentCharIndex >= Object.values(quote).length - 1,
+    isTextEndReached: currentCharIndex >= Object.values(quote).length - 1,
   };
   dispatch({ type: NEXT_CHAR, payload });
 };
