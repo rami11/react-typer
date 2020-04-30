@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { createUseStyles } from "react-jss";
+import { withStyles } from "@material-ui/core/styles";
 import {
   nextChar,
   keyPressed,
@@ -11,17 +11,17 @@ import Key from "./Key";
 const btnStyle = {
   display: "inline-block",
   width: "30px",
-  backgroundColor: "white",
-  borderRadius: 2,
+  // backgroundColor: "white",
+  borderRadius: "2px",
   fontSize: ".7em",
   padding: "0 6px",
-  margin: 2,
+  margin: "2px",
   border: "1px solid grey",
   textAlign: "left",
   fontWeight: "bold",
 };
 
-const useStyles = createUseStyles({
+const styles = {
   keyboard: {
     textAlign: "center",
     backgroundColor: "#f5f5f5",
@@ -37,9 +37,9 @@ const useStyles = createUseStyles({
   btnShift: { ...btnStyle, width: "80px" },
   btnCtl: { ...btnStyle, width: "35px" },
   btnSpace: { ...btnStyle, width: "150px" },
-});
+};
 
-const Keyboard = (props) => {
+const Keyboard = withStyles(styles)((props) => {
   useEffect(() => {
     props.setFocus(!props.isTextEndReached);
   });
@@ -58,7 +58,7 @@ const Keyboard = (props) => {
     props.keyPressed(code);
   };
 
-  const classes = useStyles();
+  const classes = props.classes;
 
   return (
     <div
@@ -203,7 +203,7 @@ const Keyboard = (props) => {
       </div>
     </div>
   );
-};
+});
 
 const mapStateToProps = (state) => {
   return {
