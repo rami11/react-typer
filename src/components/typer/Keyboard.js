@@ -11,7 +11,6 @@ import Key from "./Key";
 const btnStyle = {
   display: "inline-block",
   width: "30px",
-  // backgroundColor: "white",
   borderRadius: "2px",
   fontSize: ".7em",
   padding: "0 6px",

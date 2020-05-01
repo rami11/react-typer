@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 import clsx from "clsx";
 
 const styles = (theme) => ({
@@ -18,14 +19,10 @@ const Key = withStyles(styles)((props) => {
     : clsx(classes.keyPressed, props.className);
 
   return (
-    <div
-      style={{ backgroundColor: "white" }}
-      key={props.keyCode}
-      className={className}
-    >
+    <Box bgcolor="white" key={props.keyCode} className={className}>
       <div>{props.char1}</div>
       <div>{props.char2}</div>
-    </div>
+    </Box>
   );
 });
 
