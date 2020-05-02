@@ -1,20 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-const SummaryBlock = (props) => {
+const styles = (theme) => ({
+  summaryBlock: theme.block,
+});
+
+const SummaryBlock = withStyles(styles)((props) => {
+  const classes = props.classes;
   return (
-    <Box
-      style={{ margin: "16px", borderRadius: "4px" }}
-      bgcolor="text.primary"
-      color="background.paper"
-      p={2}
-    >
+    <Box className={classes.summaryBlock}>
       Errors: {props.errorCount}, Accuracy: {props.accuracyPercentage}%, Speed:{" "}
       {props.speed} CPM
     </Box>
   );
-};
+});
 
 const mapStateToProps = (state) => {
   return {

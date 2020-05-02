@@ -1,21 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-class TextBlock extends React.Component {
-  renderChar = (char, index) => {
+const styles = (theme) => ({
+  textBlock: theme.block,
+});
+
+const TextBlock = withStyles(styles)((props) => {
+  const renderChar = (char, index) => {
     let style = {};
 
-    if (index === this.props.currentCharIndex) {
+    if (index === props.currentCharIndex) {
       style = { ...style, textDecoration: "underline" };
     }
 
     let charStyle;
-    if (this.props.isVisited[index]) {
-      charStyle = this.props.isSuccess[index]
-        ? { color: "lightgreen" }
-        : { backgroundColor: "red" };
+    if (props.isVisited[index]) {
+      charStyle = props.isSuccess[index]
+        ? { color: "green" }
+        : { color: "white", backgroundColor: "red" };
     }
 
     style = { ...style, ...charStyle };
@@ -27,13 +32,13 @@ class TextBlock extends React.Component {
     );
   };
 
-  populateContent = (quote, source) => {
+  const populateContent = (quote, source) => {
     if (!(quote && source)) {
       return <LinearProgress />;
     }
 
     const chars = Object.values(quote).map((char, index) =>
-      this.renderChar(char, index)
+      renderChar(char, index)
     );
 
     return (
@@ -43,19 +48,13 @@ class TextBlock extends React.Component {
     );
   };
 
-  render() {
-    return (
-      <Box
-        style={{ margin: "16px", borderRadius: "4px" }}
-        bgcolor="text.primary"
-        color="background.paper"
-        p={2}
-      >
-        {this.populateContent(this.props.quote, this.props.source)}
-      </Box>
-    );
-  }
-}
+  const classes = props.classes;
+  return (
+    <Box className={classes.textBlock}>
+      {populateContent(props.quote, props.source)}
+    </Box>
+  );
+});
 
 const mapStateToProps = (state) => {
   return {
