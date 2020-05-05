@@ -12,12 +12,12 @@ const theme = createMuiTheme({
     borderRadius: "4px",
     backgroundColor: grey[50],
     color: "black",
-    border: "1px solid",
+    border: `.5px solid ${blue[900]}`,
   },
   palette: {
     primary: blue,
     secondary: {
-      main: blue[500],
+      main: blue[900],
     },
   },
 });
