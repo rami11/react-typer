@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import {
   nextChar,
@@ -36,6 +37,9 @@ const styles = {
   btnShift: { ...btnStyle, width: "80px" },
   btnCtl: { ...btnStyle, width: "35px" },
   btnSpace: { ...btnStyle, width: "150px" },
+  invisible: {
+    visibility: "hidden",
+  },
 };
 
 const Keyboard = withStyles(styles)((props) => {
@@ -95,7 +99,7 @@ const Keyboard = withStyles(styles)((props) => {
       <div>
         <Key
           code="Tab"
-          className={classes.btnTab}
+          className={clsx(classes.btnTab, classes.invisible)}
           char1="Tab"
           char2={"\u00a0"}
         />
