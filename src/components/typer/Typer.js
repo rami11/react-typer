@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchText } from "../../redux/actions/typerActions";
+import { withStyles } from "@material-ui/core/styles";
+import ResetButton from "./ResetButton";
 
 import TextBlock from "./TextBlock";
 import SummaryBlock from "./SummaryBlock";
 import Keyboard from "./Keyboard";
 
-class Typer extends React.Component {
-  componentDidMount = () => {
-    this.props.fetchText();
-  };
+const styles = {
+  bottom: {
+    textAlign: "center",
+  },
+};
 
-  render() {
-    return (
-      <Container onClick={this.handleClick} maxWidth="sm">
-        <SummaryBlock />
-        <Keyboard
-          setFocus={this.props.setKeyboardFocus}
-          setRef={this.props.setRef}
-        />
+const Typer = withStyles(styles)((props) => {
+  useEffect(() => {
+    props.fetchText();
+  });
+
+  const classes = props.classes;
+  return (
+    <Container maxWidth="sm">
+      <SummaryBlock />
+      <Keyboard setFocus={props.setKeyboardFocus} setRef={props.setRef} />
+      <div className={classes.bottom}>
         <TextBlock />
-      </Container>
-    );
-  }
-}
+        <ResetButton />
+      </div>
+    </Container>
+  );
+});
 
 export default connect(null, { fetchText })(Typer);
