@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
+import { withTranslation } from "react-i18next";
 
-const ResetButton = (props) => {
+const ResetButton = withTranslation()((props) => {
   const onResetButtonClick = () => window.location.reload();
 
   useEffect(() => {
@@ -18,10 +19,10 @@ const ResetButton = (props) => {
       style={{ display: props.isTextEndReached ? "inline-block" : "none" }}
       variant="outlined"
     >
-      Reset
+      {props.t("reset")}
     </Button>
   );
-};
+});
 
 const mapStateToProps = (state) => {
   return {

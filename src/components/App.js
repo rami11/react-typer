@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import TyperPage from "../pages/TyperPage";
-import Header from "./common/Header";
 import { blue, grey } from "@material-ui/core/colors";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import Header from "./common/Header";
+import TyperPage from "../pages/TyperPage";
 
 const theme = createMuiTheme({
   block: {
