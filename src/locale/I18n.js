@@ -6,11 +6,17 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         reset: "Reset",
+        errors: "Errors",
+        accuracy: "Accuracy",
+        speed: "Speed",
       },
     },
     fr: {
       translation: {
         reset: "Réinitialiser",
+        errors: "Erreurs",
+        accuracy: "Précision",
+        speed: "Vitesse",
       },
     },
   },
