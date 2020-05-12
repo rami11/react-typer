@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { withTranslation } from "react-i18next";
 
-const ResetButton = withTranslation()((props) => {
+const ResetButton = (props) => {
   const onResetButtonClick = () => window.location.reload();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const ResetButton = withTranslation()((props) => {
       {props.t("reset")}
     </Button>
   );
-});
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -30,4 +30,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ResetButton);
+export default connect(mapStateToProps)(withTranslation()(ResetButton));
