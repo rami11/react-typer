@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { withTranslation } from "react-i18next";
 
 const styles = (theme) => ({
   summaryBlock: { ...theme.block, padding: 12, display: "flex" },
@@ -14,16 +15,22 @@ const styles = (theme) => ({
   },
 });
 
-const SummaryBlock = withStyles(styles)((props) => {
+const SummaryBlock = (props) => {
   const classes = props.classes;
   return (
     <Box className={classes.summaryBlock}>
-      <Box className={classes.box}>Errors: {props.errorCount}</Box>
-      <Box className={classes.box}>Accuracy: {props.accuracyPercentage}%</Box>
-      <Box className={classes.box}>Speed: {props.speed} CPM</Box>
+      <Box className={classes.box}>
+        {props.t("errors")} {props.errorCount}
+      </Box>
+      <Box className={classes.box}>
+        {props.t("accuracy")} {props.accuracyPercentage}%
+      </Box>
+      <Box className={classes.box}>
+        {props.t("speed")} {props.speed} CPM
+      </Box>
     </Box>
   );
-});
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -33,4 +40,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(SummaryBlock);
+export default connect(mapStateToProps)(
+  withStyles(styles)(withTranslation()(SummaryBlock))
+);
