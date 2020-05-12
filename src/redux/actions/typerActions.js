@@ -1,4 +1,10 @@
-import { FETCH_TEXT, NEXT_CHAR, KEY_PRESSED, KEY_RELEASED } from "./types";
+import {
+  FETCH_TEXT,
+  NEXT_CHAR,
+  KEY_PRESSED,
+  KEY_RELEASED,
+  RESET_TYPER,
+} from "./types";
 
 const baseUrl = "http://localhost:5000";
 
@@ -6,6 +12,10 @@ export const fetchText = (lan) => async (dispatch) => {
   const res = await fetch(`${baseUrl}/text/random/${lan}`);
   let text = await res.json();
   dispatch({ type: FETCH_TEXT, payload: text });
+};
+
+export const resetTyper = () => async (dispatch) => {
+  dispatch({ type: RESET_TYPER });
 };
 
 export const nextChar = (keyPressed) => async (dispatch, getState) => {

@@ -6,3 +6,4 @@ export const FETCH_TEXT = "FETCH_TEXT";
 export const NEXT_CHAR = "NEXT_CHAR";
 export const KEY_PRESSED = "KEY_PRESSED";
 export const KEY_RELEASED = "KEY_RELEASED";
+export const RESET_TYPER = "RESET_TYPER";

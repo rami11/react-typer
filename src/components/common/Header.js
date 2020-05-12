@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { AppBar, Toolbar } from "@material-ui/core";
+import { connect } from "react-redux";
 
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Translate from "@material-ui/icons/Translate";
 import { withTranslation } from "react-i18next";
+import { resetTyper } from "../../redux/actions/typerActions";
 
 const Header = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,11 +22,13 @@ const Header = (props) => {
   };
 
   const handleEnglishClick = (event) => {
+    props.resetTyper();
     props.i18n.changeLanguage("en");
     setAnchorEl(false);
   };
 
   const handleFrenchClick = (event) => {
+    props.resetTyper();
     props.i18n.changeLanguage("fr");
     setAnchorEl(false);
   };
@@ -71,4 +75,4 @@ const Header = (props) => {
   );
 };
 
-export default withTranslation()(Header);
+export default connect(null, { resetTyper })(withTranslation()(Header));

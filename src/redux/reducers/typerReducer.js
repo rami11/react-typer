@@ -3,6 +3,7 @@ import {
   NEXT_CHAR,
   KEY_PRESSED,
   KEY_RELEASED,
+  RESET_TYPER,
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +28,8 @@ export default (state = initialState, action) => {
       const quote = { ...action.payload.quote };
       const source = action.payload.source;
       return { ...state, quote, source };
+    case RESET_TYPER:
+      return { ...initialState, isSuccess: [], isVisited: [] };
     case NEXT_CHAR:
       return {
         ...state,
