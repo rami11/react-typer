@@ -2,8 +2,8 @@ import { FETCH_TEXT, NEXT_CHAR, KEY_PRESSED, KEY_RELEASED } from "./types";
 
 const baseUrl = "http://localhost:5000";
 
-export const fetchText = () => async (dispatch) => {
-  const res = await fetch(`${baseUrl}/text/random/en`);
+export const fetchText = (lan) => async (dispatch) => {
+  const res = await fetch(`${baseUrl}/text/random/${lan}`);
   let text = await res.json();
   dispatch({ type: FETCH_TEXT, payload: text });
 };

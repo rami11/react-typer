@@ -3,6 +3,7 @@ import { Container } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchText } from "../../redux/actions/typerActions";
 import { withStyles } from "@material-ui/core/styles";
+import { withTranslation } from "react-i18next";
 import ResetButton from "./ResetButton";
 
 import TextBlock from "./TextBlock";
@@ -15,9 +16,9 @@ const styles = {
   },
 };
 
-const Typer = withStyles(styles)((props) => {
+const Typer = (props) => {
   useEffect(() => {
-    props.fetchText();
+    props.fetchText(props.i18n.language);
   });
 
   const classes = props.classes;
@@ -31,6 +32,8 @@ const Typer = withStyles(styles)((props) => {
       </div>
     </Container>
   );
-});
+};
 
-export default connect(null, { fetchText })(Typer);
+export default connect(null, { fetchText })(
+  withStyles(styles)(withTranslation()(Typer))
+);
