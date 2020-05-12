@@ -10,7 +10,7 @@ ReactDOM.render(
   <Provider store={store}>
     <React.Fragment>
       <CssBaseline />
-      <App></App>
+      <App />
     </React.Fragment>
   </Provider>,
   document.getElementById("root")
