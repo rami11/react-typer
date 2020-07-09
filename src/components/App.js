@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { blue, grey } from "@material-ui/core/colors";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Header from "./common/Header";
+import Footer from "./common/Footer";
 import TyperPage from "../pages/TyperPage";
 
 const theme = createMuiTheme({
@@ -28,6 +29,7 @@ const App = () => {
       <Router>
         <Header></Header>
         <Route to="/" component={TyperPage} />
+        <Footer></Footer>
       </Router>
     </MuiThemeProvider>
   );
