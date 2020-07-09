@@ -6,7 +6,7 @@ import {
   RESET_TYPER,
 } from "./types";
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:8080/api";
 
 export const fetchText = (lan) => async (dispatch) => {
   const res = await fetch(`${baseUrl}/text/random/${lan}`);
