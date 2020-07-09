@@ -8,10 +8,8 @@ const styles = (theme) => ({
   summaryBlock: { ...theme.block, padding: 12, display: "flex" },
   box: {
     ...theme.block,
-    color: "white",
     padding: 8,
     margin: "0 4px",
-    backgroundColor: theme.palette.primary.main,
   },
 });
 
@@ -20,13 +18,13 @@ const SummaryBlock = (props) => {
   return (
     <Box className={classes.summaryBlock}>
       <Box className={classes.box}>
-        {props.t("errors")} {props.errorCount}
+        <b>{props.t("errors")}</b> {props.errorCount}
       </Box>
       <Box className={classes.box}>
-        {props.t("accuracy")} {props.accuracyPercentage}%
+        <b>{props.t("accuracy")}</b> {props.accuracyPercentage}%
       </Box>
       <Box className={classes.box}>
-        {props.t("speed")} {props.speed} CPM
+        <b>{props.t("speed")}</b> {props.speed} CPM
       </Box>
     </Box>
   );

@@ -12,8 +12,8 @@ const theme = createMuiTheme({
     padding: "16px",
     borderRadius: "4px",
     backgroundColor: grey[50],
-    color: "black",
-    border: `.5px solid ${blue[900]}`,
+    boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
+    border: ".5px solid #d4d2d0",
   },
   palette: {
     primary: blue,
