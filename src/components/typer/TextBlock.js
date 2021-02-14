@@ -9,60 +9,36 @@ const styles = (theme) => ({
 });
 
 const TextBlock = withStyles(styles)((props) => {
-  const renderChar = (char, index) => {
-    let style = {};
-
-    if (index === props.currentCharIndex) {
-      style = { ...style, textDecoration: "underline" };
-    }
-
-    let charStyle;
-    if (props.isVisited[index]) {
-      charStyle = props.isSuccess[index]
-        ? { color: "green" }
-        : { color: "white", backgroundColor: "red" };
-    }
-
-    style = { ...style, ...charStyle };
-
-    return (
-      <span style={style} key={index}>
-        {char}
-      </span>
-    );
+  const populateQuote = (quote) => {
+    return quote.split("").map((char, i) => <span key={i}>{char}</span>);
   };
 
-  const populateContent = (quote, source) => {
-    if (!(quote && source)) {
+  const populateSource = (source) => {
+    return <span>{source}</span>;
+  };
+
+  const populateContent = (text) => {
+    if (text) {
+      const quote = text.quote;
+      const source = text.source;
+      return (
+        <>
+          {populateQuote(quote)} - {populateSource(source)}
+        </>
+      );
+    } else {
       return <LinearProgress />;
     }
-
-    const chars = Object.values(quote).map((char, index) =>
-      renderChar(char, index)
-    );
-
-    return (
-      <React.Fragment>
-        “{chars}” - {source}
-      </React.Fragment>
-    );
   };
 
   const classes = props.classes;
-  return (
-    <Box className={classes.textBlock}>
-      {populateContent(props.quote, props.source)}
-    </Box>
-  );
+  const text = props.text;
+  return <Box className={classes.textBlock}>{populateContent(text)}</Box>;
 });
 
 const mapStateToProps = (state) => {
   return {
-    currentCharIndex: state.typer.currentCharIndex,
-    quote: state.typer.quote,
-    source: state.typer.source,
-    isSuccess: state.typer.isSuccess,
-    isVisited: state.typer.isVisited,
+    text: state.typer.text,
   };
 };
 

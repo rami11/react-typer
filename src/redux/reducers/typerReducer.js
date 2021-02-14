@@ -8,26 +8,24 @@ import {
 
 const initialState = {
   keys: {},
-  quote: null,
-  source: "",
-  currentCharIndex: 0,
-  isSuccess: [],
-  isVisited: [],
-  errorCount: 0,
-  charSuccessCount: 0,
-  charTypedCount: 0,
-  accuracyPercentage: 0,
+  text: null, // { quote, source }
   initTime: Date.now(),
+  currentPosition: 0,
+  isSuccessPositions: [],
+  charSuccessCount: 0,
+  errorCount: 0,
   speed: 0,
-  isTextEndReached: false,
+  accuracy: 0,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TEXT:
-      const quote = { ...action.payload.quote };
+      const quote = action.payload.quote;
       const source = action.payload.source;
-      return { ...state, quote, source };
+      const text = { quote, source };
+
+      return { ...state, text };
     case RESET_TYPER:
       return { ...initialState, isSuccess: [], isVisited: [] };
     case NEXT_CHAR:
