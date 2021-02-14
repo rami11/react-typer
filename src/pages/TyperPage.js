@@ -1,5 +1,6 @@
 import React from "react";
 import Typer from "../components/typer/Typer";
+import Socketio from "../components/socketio/Socketio";
 
 class TyperPage extends React.Component {
   setRef = (ref) => {
@@ -22,6 +23,7 @@ class TyperPage extends React.Component {
     return (
       <div onClick={this.handleClick} style={{ width: "100%" }}>
         <Typer setKeyboardFocus={this.setKeyboardFocus} setRef={this.setRef} />
+        <Socketio />
       </div>
     );
   }
