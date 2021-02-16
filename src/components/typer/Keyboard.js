@@ -209,9 +209,7 @@ const Keyboard = withStyles(styles)((props) => {
 });
 
 const mapStateToProps = (state) => {
-  return {
-    isTextEndReached: state.typer.isTextEndReached,
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, {
