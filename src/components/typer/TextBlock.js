@@ -10,7 +10,21 @@ const styles = (theme) => ({
 
 const TextBlock = withStyles(styles)((props) => {
   const populateQuote = (quote) => {
-    return quote.split("").map((char, i) => <span key={i}>{char}</span>);
+    return quote.split("").map((char, i) => {
+      const textDecoration = i === props.currentPosition ? "underline" : "none";
+
+      let backgroundColor = "none";
+      let color = "black";
+      if (i < props.currentPosition) {
+        backgroundColor = props.isSuccessPositions[i] ? "green" : "red";
+        color = "white";
+      }
+      return (
+        <span key={i} style={{ color, backgroundColor, textDecoration }}>
+          {char}
+        </span>
+      );
+    });
   };
 
   const populateSource = (source) => {
