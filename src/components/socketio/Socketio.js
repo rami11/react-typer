@@ -14,7 +14,7 @@ const Socketio = (props) => {
   const classes = props.classes;
   return (
     <Container maxWidth="sm">
-      <Box className={classes.box}>something</Box>
+      <Box className={classes.box}>for socketio...</Box>
     </Container>
   );
 };
