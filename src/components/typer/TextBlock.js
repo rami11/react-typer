@@ -39,6 +39,8 @@ const TextBlock = withStyles(styles)((props) => {
 const mapStateToProps = (state) => {
   return {
     text: state.typer.text,
+    currentPosition: state.typer.currentPosition,
+    isSuccessPositions: state.typer.isSuccessPositions,
   };
 };
 
