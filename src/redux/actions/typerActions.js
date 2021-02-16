@@ -18,36 +18,48 @@ export const resetTyper = () => async (dispatch) => {
   dispatch({ type: RESET_TYPER });
 };
 
+// let currentCharIndex = getState().typer.currentCharIndex;
+// const quote = getState().typer.quote;
+
+// let isSuccess = quote[currentCharIndex] === keyPressed;
+// if (!isSuccess) {
+//   ++getState().typer.errorCount;
+// } else {
+//   ++getState().typer.charSuccessCount;
+// }
+// ++getState().typer.charTypedCount;
+
+// getState().typer.isSuccess.push(isSuccess);
+// getState().typer.isVisited.push(true);
+
+// const payload = {
+//   currentCharIndex: ++getState().typer.currentCharIndex,
+//   isSuccess: getState().typer.isSuccess,
+//   isVisited: getState().typer.isVisited,
+//   accuracyPercentage: calcAccuracyPercentage(
+//     getState().typer.charSuccessCount,
+//     getState().typer.charTypedCount
+//   ),
+//   speed: calcSpeed(
+//     getState().typer.initTime,
+//     getState().typer.charSuccessCount
+//   ),
+//   isTextEndReached: currentCharIndex >= Object.values(quote).length - 1,
+// };
+
 export const nextChar = (keyPressed) => async (dispatch, getState) => {
-  let currentCharIndex = getState().typer.currentCharIndex;
-  const quote = getState().typer.quote;
+  const currentPosition = getState().typer.currentPosition;
+  const text = getState().typer.text;
+  const quote = text ? text.quote : "";
+  const charAtPosition = quote.split("")[currentPosition];
 
-  let isSuccess = quote[currentCharIndex] === keyPressed;
-  if (!isSuccess) {
-    ++getState().typer.errorCount;
-  } else {
-    ++getState().typer.charSuccessCount;
-  }
-  ++getState().typer.charTypedCount;
+  const isSuccess = keyPressed === charAtPosition;
+  const newCurrentPosition = currentPosition + 1;
 
-  getState().typer.isSuccess.push(isSuccess);
-  getState().typer.isVisited.push(true);
-
-  const payload = {
-    currentCharIndex: ++getState().typer.currentCharIndex,
-    isSuccess: getState().typer.isSuccess,
-    isVisited: getState().typer.isVisited,
-    accuracyPercentage: calcAccuracyPercentage(
-      getState().typer.charSuccessCount,
-      getState().typer.charTypedCount
-    ),
-    speed: calcSpeed(
-      getState().typer.initTime,
-      getState().typer.charSuccessCount
-    ),
-    isTextEndReached: currentCharIndex >= Object.values(quote).length - 1,
-  };
-  dispatch({ type: NEXT_CHAR, payload });
+  dispatch({
+    type: NEXT_CHAR,
+    payload: { currentPosition: newCurrentPosition, isSuccess },
+  });
 };
 
 const calcAccuracyPercentage = (charSuccessCount, charTypedCount) => {

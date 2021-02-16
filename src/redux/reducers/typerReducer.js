@@ -29,14 +29,14 @@ export default (state = initialState, action) => {
     case RESET_TYPER:
       return { ...initialState, isSuccess: [], isVisited: [] };
     case NEXT_CHAR:
+      const currentPosition = action.payload.currentPosition;
+      const isSuccess = action.payload.isSuccess;
+      const isSuccessPositions = state.isSuccessPositions;
+      isSuccessPositions.push(isSuccess);
       return {
         ...state,
-        currentCharIndex: action.payload.currentCharIndex,
-        isSuccess: action.payload.isSuccess,
-        isVisited: action.payload.isVisited,
-        accuracyPercentage: action.payload.accuracyPercentage,
-        speed: action.payload.speed,
-        isTextEndReached: action.payload.isTextEndReached,
+        currentPosition,
+        isSuccessPositions,
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;
