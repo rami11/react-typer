@@ -31,17 +31,20 @@ export default (state = initialState, action) => {
       return { ...initialState, isSuccess: [], isVisited: [] };
     case NEXT_CHAR:
       const currentPosition = action.payload.currentPosition;
+      const isSuccessPositions = action.payload.isSuccessPositions;
+      const charSuccessCount = action.payload.charSuccessCount;
       const isTextEndReached = action.payload.isTextEndReached;
       const errorCount = action.payload.errorCount;
-      const isSuccess = action.payload.isSuccess;
-      const isSuccessPositions = state.isSuccessPositions;
-      isSuccessPositions.push(isSuccess);
+      const accuracy = action.payload.accuracy;
+
       return {
         ...state,
         currentPosition,
+        charSuccessCount,
         isSuccessPositions,
         isTextEndReached,
         errorCount,
+        accuracy,
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;

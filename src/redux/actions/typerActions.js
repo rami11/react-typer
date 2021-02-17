@@ -18,54 +18,37 @@ export const resetTyper = () => async (dispatch) => {
   dispatch({ type: RESET_TYPER });
 };
 
-// let currentCharIndex = getState().typer.currentCharIndex;
-// const quote = getState().typer.quote;
-
-// let isSuccess = quote[currentCharIndex] === keyPressed;
-// if (!isSuccess) {
-//   ++getState().typer.errorCount;
-// } else {
-//   ++getState().typer.charSuccessCount;
-// }
-// ++getState().typer.charTypedCount;
-
-// getState().typer.isSuccess.push(isSuccess);
-// getState().typer.isVisited.push(true);
-
-// const payload = {
-//   currentCharIndex: ++getState().typer.currentCharIndex,
-//   isSuccess: getState().typer.isSuccess,
-//   isVisited: getState().typer.isVisited,
-//   accuracyPercentage: calcAccuracyPercentage(
-//     getState().typer.charSuccessCount,
-//     getState().typer.charTypedCount
-//   ),
-//   speed: calcSpeed(
-//     getState().typer.initTime,
-//     getState().typer.charSuccessCount
-//   ),
-//   isTextEndReached: currentCharIndex >= Object.values(quote).length - 1,
-// };
-
 export const nextChar = (keyPressed) => async (dispatch, getState) => {
   const currentPosition = getState().typer.currentPosition;
+  const isSuccessPositions = getState().typer.isSuccessPositions;
+  console.log("Is success positions:", isSuccessPositions);
+  const charSuccessCount = getState().typer.charSuccessCount;
   const errorCount = getState().typer.errorCount;
   const text = getState().typer.text;
   const quote = text ? text.quote : "";
   const charAtPosition = quote.split("")[currentPosition];
 
   const isSuccess = keyPressed === charAtPosition;
+  const newIsSuccessPositions = isSuccessPositions.concat([isSuccess]);
   const newCurrentPosition = currentPosition + 1;
+  const newCharSuccessCount = isSuccess
+    ? charSuccessCount + 1
+    : charSuccessCount;
   const isTextEndReached = newCurrentPosition >= quote.length;
   const newErrorCount = isSuccess ? errorCount : errorCount + 1;
+
+  const charTypedCount = newIsSuccessPositions.length;
+  const accuracy = calcAccuracyPercentage(charSuccessCount, charTypedCount);
 
   dispatch({
     type: NEXT_CHAR,
     payload: {
       currentPosition: newCurrentPosition,
-      isSuccess,
+      isSuccessPositions: newIsSuccessPositions,
       isTextEndReached,
+      charSuccessCount: newCharSuccessCount,
       errorCount: newErrorCount,
+      accuracy,
     },
   });
 };

@@ -21,7 +21,7 @@ const SummaryBlock = (props) => {
         <b>{props.t("errors")}</b> {props.errorCount}
       </Box>
       <Box className={classes.box}>
-        <b>{props.t("accuracy")}</b> {props.accuracyPercentage}%
+        <b>{props.t("accuracy")}</b> {props.accuracy}%
       </Box>
       <Box className={classes.box}>
         <b>{props.t("speed")}</b> {props.speed} CPM
@@ -33,7 +33,7 @@ const SummaryBlock = (props) => {
 const mapStateToProps = (state) => {
   return {
     errorCount: state.typer.errorCount,
-    accuracyPercentage: state.typer.accuracyPercentage,
+    accuracy: state.typer.accuracy,
     speed: state.typer.speed,
   };
 };
