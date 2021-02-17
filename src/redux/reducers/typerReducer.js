@@ -32,6 +32,7 @@ export default (state = initialState, action) => {
     case NEXT_CHAR:
       const currentPosition = action.payload.currentPosition;
       const isTextEndReached = action.payload.isTextEndReached;
+      const errorCount = action.payload.errorCount;
       const isSuccess = action.payload.isSuccess;
       const isSuccessPositions = state.isSuccessPositions;
       isSuccessPositions.push(isSuccess);
@@ -40,6 +41,7 @@ export default (state = initialState, action) => {
         currentPosition,
         isSuccessPositions,
         isTextEndReached,
+        errorCount,
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;

@@ -49,6 +49,7 @@ export const resetTyper = () => async (dispatch) => {
 
 export const nextChar = (keyPressed) => async (dispatch, getState) => {
   const currentPosition = getState().typer.currentPosition;
+  const errorCount = getState().typer.errorCount;
   const text = getState().typer.text;
   const quote = text ? text.quote : "";
   const charAtPosition = quote.split("")[currentPosition];
@@ -56,6 +57,7 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
   const isSuccess = keyPressed === charAtPosition;
   const newCurrentPosition = currentPosition + 1;
   const isTextEndReached = newCurrentPosition >= quote.length;
+  const newErrorCount = isSuccess ? errorCount : errorCount + 1;
 
   dispatch({
     type: NEXT_CHAR,
@@ -63,6 +65,7 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
       currentPosition: newCurrentPosition,
       isSuccess,
       isTextEndReached,
+      errorCount: newErrorCount,
     },
   });
 };
