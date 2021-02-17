@@ -13,6 +13,7 @@ const initialState = {
   currentPosition: 0,
   isSuccessPositions: [],
   charSuccessCount: 0,
+  isTextEndReached: false,
   errorCount: 0,
   speed: 0,
   accuracy: 0,
@@ -30,6 +31,7 @@ export default (state = initialState, action) => {
       return { ...initialState, isSuccess: [], isVisited: [] };
     case NEXT_CHAR:
       const currentPosition = action.payload.currentPosition;
+      const isTextEndReached = action.payload.isTextEndReached;
       const isSuccess = action.payload.isSuccess;
       const isSuccessPositions = state.isSuccessPositions;
       isSuccessPositions.push(isSuccess);
@@ -37,6 +39,7 @@ export default (state = initialState, action) => {
         ...state,
         currentPosition,
         isSuccessPositions,
+        isTextEndReached,
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;

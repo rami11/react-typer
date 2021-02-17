@@ -55,10 +55,15 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
 
   const isSuccess = keyPressed === charAtPosition;
   const newCurrentPosition = currentPosition + 1;
+  const isTextEndReached = newCurrentPosition >= quote.length;
 
   dispatch({
     type: NEXT_CHAR,
-    payload: { currentPosition: newCurrentPosition, isSuccess },
+    payload: {
+      currentPosition: newCurrentPosition,
+      isSuccess,
+      isTextEndReached,
+    },
   });
 };
 
