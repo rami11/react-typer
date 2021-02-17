@@ -19,9 +19,9 @@ export const resetTyper = () => async (dispatch) => {
 };
 
 export const nextChar = (keyPressed) => async (dispatch, getState) => {
+  const initTime = getState().typer.initTime;
   const currentPosition = getState().typer.currentPosition;
   const isSuccessPositions = getState().typer.isSuccessPositions;
-  console.log("Is success positions:", isSuccessPositions);
   const charSuccessCount = getState().typer.charSuccessCount;
   const errorCount = getState().typer.errorCount;
   const text = getState().typer.text;
@@ -39,6 +39,7 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
 
   const charTypedCount = newIsSuccessPositions.length;
   const accuracy = calcAccuracyPercentage(charSuccessCount, charTypedCount);
+  const speed = calcSpeed(initTime, charSuccessCount);
 
   dispatch({
     type: NEXT_CHAR,
@@ -49,6 +50,7 @@ export const nextChar = (keyPressed) => async (dispatch, getState) => {
       charSuccessCount: newCharSuccessCount,
       errorCount: newErrorCount,
       accuracy,
+      speed,
     },
   });
 };

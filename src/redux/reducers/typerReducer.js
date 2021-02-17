@@ -36,6 +36,7 @@ export default (state = initialState, action) => {
       const isTextEndReached = action.payload.isTextEndReached;
       const errorCount = action.payload.errorCount;
       const accuracy = action.payload.accuracy;
+      const speed = action.payload.speed;
 
       return {
         ...state,
@@ -45,6 +46,7 @@ export default (state = initialState, action) => {
         isTextEndReached,
         errorCount,
         accuracy,
+        speed,
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;
