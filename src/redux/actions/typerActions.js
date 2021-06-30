@@ -1,6 +1,7 @@
 import {
   FETCH_TEXT,
   NEXT_CHAR,
+  BACKSPACE_KEY_DOWN,
   KEY_PRESSED,
   KEY_RELEASED,
   RESET_TYPER,
@@ -64,6 +65,22 @@ const calcSpeed = (initTime, charSuccessCount) => {
   const speed = Math.ceil((charSuccessCount * 60) / intervalSec);
   return speed;
 };
+
+export const backspaceKeyPressed = () => async (dispatch, getState) => {
+    const currentPosition = getState().typer.currentPosition;
+    const isSuccessPositions = getState().typer.isSuccessPositions;
+
+    const newCurrentPosition = currentPosition - 1;
+    const newIsSuccessPositions = isSuccessPositions.slice(0, -1);
+
+    dispatch({
+      type: BACKSPACE_KEY_DOWN,
+      payload: {
+        currentPosition: newCurrentPosition,
+        isSuccessPositions: newIsSuccessPositions
+      }
+    });
+}
 
 export const keyPressed = (code) => (dispatch) => {
   dispatch({ type: KEY_PRESSED, payload: code });

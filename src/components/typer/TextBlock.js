@@ -13,12 +13,13 @@ const TextBlock = withStyles(styles)((props) => {
     return quote.split("").map((char, i) => {
       const textDecoration = i === props.currentPosition ? "underline" : "none";
 
-      let backgroundColor = "none";
+      let backgroundColor = "white";
       let color = "black";
-      if (i < props.currentPosition) {
+      if (i < props.isSuccessPositions.length) {
         backgroundColor = props.isSuccessPositions[i] ? "green" : "red";
         color = "white";
       }
+      console.log('background color', backgroundColor);
       return (
         <span key={i} style={{ color, backgroundColor, textDecoration }}>
           {char}
@@ -47,6 +48,7 @@ const TextBlock = withStyles(styles)((props) => {
 
   const classes = props.classes;
   const text = props.text;
+  console.log(text);
   return <Box className={classes.textBlock}>{populateContent(text)}</Box>;
 });
 

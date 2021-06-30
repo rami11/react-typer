@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import {
   nextChar,
+  backspaceKeyPressed,
   keyPressed,
   keyReleased,
 } from "../../redux/actions/typerActions";
@@ -58,6 +59,10 @@ const Keyboard = withStyles(styles)((props) => {
 
   const handleKeyDown = (e) => {
     const { code } = e.nativeEvent;
+    if (e.keyCode === 8 && (0 < props.currentPosition && props.currentPosition < props.quote.length)) {
+      console.log('Backspace pressed!');
+      props.backspaceKeyPressed();
+    }
     props.keyPressed(code);
   };
 
@@ -211,11 +216,14 @@ const Keyboard = withStyles(styles)((props) => {
 const mapStateToProps = (state) => {
   return {
     isTextEndReached: state.typer.isTextEndReached,
+    currentPosition: state.typer.currentPosition,
+    quote: state.typer.text ? state.typer.text.quote : ''
   };
 };
 
 export default connect(mapStateToProps, {
   nextChar,
+  backspaceKeyPressed,
   keyPressed,
   keyReleased,
 })(Keyboard);

@@ -4,6 +4,7 @@ import {
   KEY_PRESSED,
   KEY_RELEASED,
   RESET_TYPER,
+  BACKSPACE_KEY_DOWN,
 } from "../actions/types";
 
 const initialState = {
@@ -47,6 +48,17 @@ export default (state = initialState, action) => {
         errorCount,
         accuracy,
         speed,
+      };
+    case BACKSPACE_KEY_DOWN:
+      const currentPosition1 = action.payload.currentPosition;
+      const isSuccessPositions1 = action.payload.isSuccessPositions;
+      console.log(currentPosition1);
+      console.log(isSuccessPositions1);
+
+      return {
+        ...state,
+        currentPosition: currentPosition1,
+        isSuccessPositions: isSuccessPositions1
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;
