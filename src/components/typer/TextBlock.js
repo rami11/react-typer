@@ -5,23 +5,24 @@ import { withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 const styles = (theme) => ({
-  textBlock: theme.block,
+  textBlock: { ...theme.block, fontWeight: "bold" },
 });
 
 const TextBlock = withStyles(styles)((props) => {
   const populateQuote = (quote) => {
     return quote.split("").map((char, i) => {
-      const textDecoration = i === props.currentPosition ? "underline" : "none";
-
-      let backgroundColor = "white";
-      let color = "black";
-      if (i < props.isSuccessPositions.length) {
-        backgroundColor = props.isSuccessPositions[i] ? "green" : "red";
-        color = "white";
+      let spanStyle = {};
+      if (i === props.currentPosition) {
+        spanStyle = { textDecoration: "underline" };
+      } else if (i < props.isSuccessPositions.length) {
+        if (props.isSuccessPositions[i]) {
+          spanStyle = { color: "green" };
+        } else {
+          spanStyle = { color: "white", backgroundColor: "red" };
+        }
       }
-      console.log('background color', backgroundColor);
       return (
-        <span key={i} style={{ color, backgroundColor, textDecoration }}>
+        <span style={spanStyle} key={i}>
           {char}
         </span>
       );
@@ -48,7 +49,6 @@ const TextBlock = withStyles(styles)((props) => {
 
   const classes = props.classes;
   const text = props.text;
-  console.log(text);
   return <Box className={classes.textBlock}>{populateContent(text)}</Box>;
 });
 
