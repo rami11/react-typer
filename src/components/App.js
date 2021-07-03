@@ -8,7 +8,7 @@ import TyperPage from "../pages/TyperPage";
 
 const theme = createMuiTheme({
   block: {
-    margin: "16px",
+    margin: "8px 0",
     padding: "16px",
     borderRadius: "4px",
     backgroundColor: grey[50],

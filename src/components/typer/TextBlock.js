@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 const styles = (theme) => ({
-  textBlock: { ...theme.block, fontWeight: "bold" },
+  textBlock: { ...theme.block, fontSize: "15px" },
 });
 
 const TextBlock = withStyles(styles)((props) => {

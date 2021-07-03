@@ -13,6 +13,7 @@ import Keyboard from "./Keyboard";
 const styles = {
   bottom: {
     textAlign: "center",
+    marginBottom: '8px'
   },
 };
 
