@@ -52,8 +52,6 @@ export default (state = initialState, action) => {
     case BACKSPACE_KEY_DOWN:
       const currentPosition1 = action.payload.currentPosition;
       const isSuccessPositions1 = action.payload.isSuccessPositions;
-      console.log(currentPosition1);
-      console.log(isSuccessPositions1);
 
       return {
         ...state,
