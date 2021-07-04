@@ -8,3 +8,6 @@ export const BACKSPACE_KEY_DOWN = "BACKSPACE_KEY_DOWN";
 export const KEY_PRESSED = "KEY_PRESSED";
 export const KEY_RELEASED = "KEY_RELEASED";
 export const RESET_TYPER = "RESET_TYPER";
+
+//socketio
+export const CLIENT_CONNECTED = "CLIENT_CONNECTED";

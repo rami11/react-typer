@@ -1,22 +1,47 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import socket from "../../api/socketio";
+import { onClientConnected } from "../../redux/actions/socketioActions";
 
 const styles = (theme) => ({
   box: {
     ...theme.block,
     padding: 8,
-    margin: "0 4px",
+    margin: "4px 0",
   },
 });
 
 const Socketio = (props) => {
+  socket.on("message", (connectedClients) => {
+    props.onClientConnected(connectedClients);
+  });
+
+  const populateBoxes = (connectedClients) => {
+      return Object.keys(connectedClients).map((clientId, i) => {
+        return (
+          <Box className={props.classes.box} key={i}>
+            {clientId}
+          </Box>
+        );
+      });
+  };
+
   const classes = props.classes;
   return (
-    <Container maxWidth="sm">
-      <Box className={classes.box}>for socketio...</Box>
+    <Container maxWidth="md">
+      {populateBoxes(props.connectedClients)}
     </Container>
   );
 };
 
-export default withStyles(styles)(Socketio);
+const mapStateToProps = (state) => {
+  return {
+    connectedClients: state.socketio.connectedClients,
+  };
+};
+
+export default connect(mapStateToProps, { onClientConnected })(
+  withStyles(styles)(Socketio)
+);
