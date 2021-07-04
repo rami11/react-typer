@@ -60,7 +60,6 @@ const Keyboard = withStyles(styles)((props) => {
   const handleKeyDown = (e) => {
     const { code } = e.nativeEvent;
     if (e.keyCode === 8 && (0 < props.currentPosition && props.currentPosition < props.quote.length)) {
-      console.log('Backspace pressed!');
       props.backspaceKeyPressed();
     }
     props.keyPressed(code);
