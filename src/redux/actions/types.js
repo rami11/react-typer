@@ -11,3 +11,4 @@ export const RESET_TYPER = "RESET_TYPER";
 
 //socketio
 export const CLIENT_CONNECTED = "CLIENT_CONNECTED";
+export const BROADCAST_PROGRESS = "BROADCAST_PROGRESS";

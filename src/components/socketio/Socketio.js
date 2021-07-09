@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import socket from "../../api/socketio";
 import { onClientConnected } from "../../redux/actions/socketioActions";
+import ClientProgressIndicator from "./ClientProgressIndicator";
 
 const styles = (theme) => ({
   box: {
@@ -19,20 +20,19 @@ const Socketio = (props) => {
   });
 
   const populateBoxes = (connectedClients) => {
-      return Object.keys(connectedClients).map((clientId, i) => {
-        return (
-          <Box className={props.classes.box} key={i}>
-            {clientId}
-          </Box>
-        );
-      });
+    return Object.values(connectedClients).map((client, i) => {
+      return (
+        <Box className={props.classes.box} key={i}>
+          <div>{client.id}</div>
+          <ClientProgressIndicator clientId={client.id} />
+        </Box>
+      );
+    });
   };
 
   const classes = props.classes;
   return (
-    <Container maxWidth="md">
-      {populateBoxes(props.connectedClients)}
-    </Container>
+    <Container maxWidth="sm">{populateBoxes(props.connectedClients)}</Container>
   );
 };
 

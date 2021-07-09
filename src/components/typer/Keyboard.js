@@ -9,6 +9,8 @@ import {
 } from "../../redux/actions/typerActions";
 import { connect } from "react-redux";
 import Key from "./Key";
+import socket from "../../api/socketio";
+import { broadcastProgress } from "../../redux/actions/socketioActions";
 
 const btnStyle = {
   display: "inline-block",
@@ -50,6 +52,7 @@ const Keyboard = withStyles(styles)((props) => {
 
   const handleKeyPress = (e) => {
     props.nextChar(e.key);
+    props.broadcastProgress(socket.id);
   };
 
   const handleKeyUp = (e) => {
@@ -59,7 +62,11 @@ const Keyboard = withStyles(styles)((props) => {
 
   const handleKeyDown = (e) => {
     const { code } = e.nativeEvent;
-    if (e.keyCode === 8 && (0 < props.currentPosition && props.currentPosition < props.quote.length)) {
+    if (
+      e.keyCode === 8 &&
+      0 < props.currentPosition &&
+      props.currentPosition < props.quote.length
+    ) {
       props.backspaceKeyPressed();
     }
     props.keyPressed(code);
@@ -216,12 +223,13 @@ const mapStateToProps = (state) => {
   return {
     isTextEndReached: state.typer.isTextEndReached,
     currentPosition: state.typer.currentPosition,
-    quote: state.typer.text ? state.typer.text.quote : ''
+    quote: state.typer.text ? state.typer.text.quote : "",
   };
 };
 
 export default connect(mapStateToProps, {
   nextChar,
+  broadcastProgress,
   backspaceKeyPressed,
   keyPressed,
   keyReleased,
