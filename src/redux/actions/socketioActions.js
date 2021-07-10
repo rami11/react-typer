@@ -1,20 +1,29 @@
-import { BROADCAST_PROGRESS, CLIENT_CONNECTED } from "./types";
+import { MESSAGE_RECEIVED, UPDATE_PROGERSS_INDICATOR } from "./types";
+import socket from "../../api/socketio";
 
-export const onClientConnected = (connectedClients) => (dispatch, getState) => {
+
+
+export const onMessageReceived = (connectedClients) => (dispatch, getState) => {
   dispatch({
-    type: CLIENT_CONNECTED,
+    type: MESSAGE_RECEIVED,
     payload: connectedClients,
   });
 };
 
 export const broadcastProgress = (clientId) => (dispatch, getState) => {
   const isSuccessPositions = getState().typer.isSuccessPositions;
-  
+
+  socket.emit("progress", { clientId, isSuccessPositions });
+};
+
+export const updateProgressIndicator = (clientId) => (dispatch, getState) => {
+  const isSuccessPositions = getState().typer.isSuccessPositions;
+
   dispatch({
-    type: BROADCAST_PROGRESS,
+    type: UPDATE_PROGERSS_INDICATOR,
     payload: {
       clientId,
-      isSuccessPositions
-    }
+      isSuccessPositions,
+    },
   });
 };

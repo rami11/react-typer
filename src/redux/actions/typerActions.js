@@ -1,4 +1,5 @@
 import {
+  CLIENT_CONNECTED,
   FETCH_TEXT,
   NEXT_CHAR,
   BACKSPACE_KEY_DOWN,
@@ -8,6 +9,13 @@ import {
 } from "./types";
 
 const baseUrl = "http://localhost:8080/api";
+
+export const onClientConnected = (clientId) => (dispatch, getState) => {
+  dispatch({
+    type: CLIENT_CONNECTED,
+    payload: clientId,
+  });
+};
 
 export const fetchText = (lan) => async (dispatch) => {
   const res = await fetch(`${baseUrl}/text/random/${lan}`);
@@ -67,20 +75,20 @@ const calcSpeed = (initTime, charSuccessCount) => {
 };
 
 export const backspaceKeyPressed = () => async (dispatch, getState) => {
-    const currentPosition = getState().typer.currentPosition;
-    const isSuccessPositions = getState().typer.isSuccessPositions;
+  const currentPosition = getState().typer.currentPosition;
+  const isSuccessPositions = getState().typer.isSuccessPositions;
 
-    const newCurrentPosition = currentPosition - 1;
-    const newIsSuccessPositions = isSuccessPositions.slice(0, -1);
+  const newCurrentPosition = currentPosition - 1;
+  const newIsSuccessPositions = isSuccessPositions.slice(0, -1);
 
-    dispatch({
-      type: BACKSPACE_KEY_DOWN,
-      payload: {
-        currentPosition: newCurrentPosition,
-        isSuccessPositions: newIsSuccessPositions
-      }
-    });
-}
+  dispatch({
+    type: BACKSPACE_KEY_DOWN,
+    payload: {
+      currentPosition: newCurrentPosition,
+      isSuccessPositions: newIsSuccessPositions,
+    },
+  });
+};
 
 export const keyPressed = (code) => (dispatch) => {
   dispatch({ type: KEY_PRESSED, payload: code });

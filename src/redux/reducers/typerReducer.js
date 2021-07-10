@@ -1,4 +1,5 @@
 import {
+  CLIENT_CONNECTED,
   FETCH_TEXT,
   NEXT_CHAR,
   KEY_PRESSED,
@@ -8,6 +9,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
+  clientId: "",
   keys: {},
   text: null, // { quote, source }
   initTime: Date.now(),
@@ -22,6 +24,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CLIENT_CONNECTED:
+      const clientId = action.payload;
+      return { ...state, clientId };
     case FETCH_TEXT:
       const quote = action.payload.quote;
       const source = action.payload.source;
@@ -56,7 +61,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentPosition: currentPosition1,
-        isSuccessPositions: isSuccessPositions1
+        isSuccessPositions: isSuccessPositions1,
       };
     case KEY_PRESSED:
       state.keys[action.payload] = true;

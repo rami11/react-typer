@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import socket from "../../api/socketio";
-import { onClientConnected } from "../../redux/actions/socketioActions";
+import {
+  onMessageReceived,
+  updateProgressIndicator,
+} from "../../redux/actions/socketioActions";
 import ClientProgressIndicator from "./ClientProgressIndicator";
 
 const styles = (theme) => ({
@@ -15,9 +18,17 @@ const styles = (theme) => ({
 });
 
 const Socketio = (props) => {
-  socket.on("message", (connectedClients) => {
-    props.onClientConnected(connectedClients);
-  });
+  console.log("load socket io component!");
+
+  useEffect(() => {
+    socket.on("message", (connectedClients) => {
+      props.onMessageReceived(connectedClients);
+    });
+
+    socket.on("progress", (client) => {
+      props.updateProgressIndicator(client.id);
+    });
+  }, []);
 
   const populateBoxes = (connectedClients) => {
     return Object.values(connectedClients).map((client, i) => {
@@ -30,7 +41,7 @@ const Socketio = (props) => {
     });
   };
 
-  const classes = props.classes;
+  // const classes = props.classes;
   return (
     <Container maxWidth="sm">{populateBoxes(props.connectedClients)}</Container>
   );
@@ -42,6 +53,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { onClientConnected })(
-  withStyles(styles)(Socketio)
-);
+export default connect(mapStateToProps, {
+  onMessageReceived,
+  updateProgressIndicator,
+})(withStyles(styles)(Socketio));

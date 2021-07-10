@@ -50,8 +50,8 @@ const Keyboard = withStyles(styles)((props) => {
     props.setFocus(!props.isTextEndReached);
   });
 
-  const handleKeyPress = (e) => {
-    props.nextChar(e.key);
+  const handleKeyPress = async (e) => {
+    await props.nextChar(e.key);
     props.broadcastProgress(socket.id);
   };
 

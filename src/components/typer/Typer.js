@@ -9,16 +9,22 @@ import ResetButton from "./ResetButton";
 import TextBlock from "./TextBlock";
 import SummaryBlock from "./SummaryBlock";
 import Keyboard from "./Keyboard";
+import socket from '../../api/socketio'
+import { onClientConnected } from "../../redux/actions/typerActions";
 
 const styles = {
   bottom: {
     textAlign: "center",
-    marginBottom: '8px'
+    marginBottom: "8px",
   },
 };
 
 const Typer = (props) => {
   useEffect(() => {
+    socket.on("connect", () => {
+      props.onClientConnected(socket.id);
+    });
+
     props.fetchText(props.i18n.language);
   });
 
@@ -35,6 +41,6 @@ const Typer = (props) => {
   );
 };
 
-export default connect(null, { fetchText })(
+export default connect(null, { fetchText, onClientConnected })(
   withStyles(styles)(withTranslation()(Typer))
 );

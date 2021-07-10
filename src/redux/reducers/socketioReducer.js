@@ -1,4 +1,4 @@
-import { BROADCAST_PROGRESS, CLIENT_CONNECTED } from "../actions/types";
+import { MESSAGE_RECEIVED, UPDATE_PROGERSS_INDICATOR } from "../actions/types";
 
 const initialState = {
   connectedClients: {},
@@ -6,19 +6,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CLIENT_CONNECTED:
+    case MESSAGE_RECEIVED:
       const connectedClients = action.payload;
       return { ...state, connectedClients };
-    case BROADCAST_PROGRESS:
+    case UPDATE_PROGERSS_INDICATOR:
       const clientId = action.payload.clientId;
       const isSuccessPositions = action.payload.isSuccessPositions;
 
       const client = state.connectedClients[clientId];
       const newClient = { ...client, isSuccessPositions };
 
-      state.connectedClients[clientId] = newClient;
+      const newConnectedClients = {
+        ...state.connectedClients,
+        [clientId]: newClient,
+      };
 
-      return state;
+      return { ...state, connectedClients: newConnectedClients };
     default:
       return state;
   }
