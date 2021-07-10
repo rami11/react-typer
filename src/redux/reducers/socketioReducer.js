@@ -14,13 +14,13 @@ export default (state = initialState, action) => {
       const connectedClients = action.payload;
       return { ...state, connectedClients };
     case UPDATE_TEXT_RECEIVED:
-      const clientId = action.payload.clientId;
-      const text = action.payload.text;
+      let clientId = action.payload.clientId;
+      let text = action.payload.text;
 
-      const client = state.connectedClients[clientId];
-      const newClient = { ...client, text };
+      let client = state.connectedClients[clientId];
+      let newClient = { ...client, text };
 
-      const newConnectedClients = {
+      let newConnectedClients = {
         ...state.connectedClients,
         [clientId]: newClient,
       };
