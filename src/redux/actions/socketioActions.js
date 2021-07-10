@@ -1,12 +1,24 @@
-import { MESSAGE_RECEIVED, UPDATE_PROGERSS_INDICATOR } from "./types";
+import {
+  MESSAGE_RECEIVED,
+  UPDATE_PROGERSS_INDICATOR,
+  UPDATE_TEXT_RECEIVED,
+} from "./types";
 import socket from "../../api/socketio";
-
-
 
 export const onMessageReceived = (connectedClients) => (dispatch, getState) => {
   dispatch({
     type: MESSAGE_RECEIVED,
     payload: connectedClients,
+  });
+};
+
+export const onUpdateTextReceived = (clientId, text) => (dispatch, getState) => {
+  dispatch({
+    type: UPDATE_TEXT_RECEIVED,
+    payload: {
+      clientId,
+      text,
+    },
   });
 };
 
