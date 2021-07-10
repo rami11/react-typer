@@ -19,19 +19,16 @@ const styles = {
   },
 };
 
-const Typer = (props) => {
+const Typer = ({ text, ...props }) => {
   useEffect(() => {
-    props.text || props.fetchText(props.i18n.language);
+    text || props.fetchText(props.i18n.language);
 
-    socket.on("connect", () => {
-      props.onClientConnected(socket.id);
-      socket.emit("update_text", props.text);
-    });
-
-    return () => {
-      console.log("The component has unmounted!");
-    };
-  }, [props.text]);
+    text &&
+      socket.on("connect", () => {
+        props.onClientConnected(socket.id);
+        socket.emit("update_text", text);
+      });
+  }, [text]);
 
   const classes = props.classes;
   return (
