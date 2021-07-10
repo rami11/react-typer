@@ -9,7 +9,7 @@ import ResetButton from "./ResetButton";
 import TextBlock from "./TextBlock";
 import SummaryBlock from "./SummaryBlock";
 import Keyboard from "./Keyboard";
-import socket from '../../api/socketio'
+import socket from "../../api/socketio";
 import { onClientConnected } from "../../redux/actions/typerActions";
 
 const styles = {
@@ -21,12 +21,17 @@ const styles = {
 
 const Typer = (props) => {
   useEffect(() => {
+    props.text || props.fetchText(props.i18n.language);
+
     socket.on("connect", () => {
       props.onClientConnected(socket.id);
+      socket.emit("update_text", props.text);
     });
 
-    props.fetchText(props.i18n.language);
-  });
+    return () => {
+      console.log("The component has unmounted!");
+    };
+  }, [props.text]);
 
   const classes = props.classes;
   return (
@@ -41,6 +46,12 @@ const Typer = (props) => {
   );
 };
 
-export default connect(null, { fetchText, onClientConnected })(
+const mapStateToProps = (state) => {
+  return {
+    text: state.typer.text,
+  };
+};
+
+export default connect(mapStateToProps, { fetchText, onClientConnected })(
   withStyles(styles)(withTranslation()(Typer))
 );

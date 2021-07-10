@@ -1,4 +1,8 @@
-import { MESSAGE_RECEIVED, UPDATE_PROGERSS_INDICATOR } from "../actions/types";
+import {
+  MESSAGE_RECEIVED,
+  UPDATE_PROGERSS_INDICATOR,
+  UPDATE_TEXT_RECEIVED,
+} from "../actions/types";
 
 const initialState = {
   connectedClients: {},
@@ -9,14 +13,27 @@ export default (state = initialState, action) => {
     case MESSAGE_RECEIVED:
       const connectedClients = action.payload;
       return { ...state, connectedClients };
-    case UPDATE_PROGERSS_INDICATOR:
+    case UPDATE_TEXT_RECEIVED:
       const clientId = action.payload.clientId;
-      const isSuccessPositions = action.payload.isSuccessPositions;
+      const text = action.payload.text;
 
       const client = state.connectedClients[clientId];
-      const newClient = { ...client, isSuccessPositions };
+      const newClient = { ...client, text };
 
       const newConnectedClients = {
+        ...state.connectedClients,
+        [clientId]: newClient,
+      };
+
+      return { ...state, connectedClients: newConnectedClients };
+    case UPDATE_PROGERSS_INDICATOR:
+      clientId = action.payload.clientId;
+      const isSuccessPositions = action.payload.isSuccessPositions;
+
+      client = state.connectedClients[clientId];
+      newClient = { ...client, isSuccessPositions };
+
+      newConnectedClients = {
         ...state.connectedClients,
         [clientId]: newClient,
       };

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import socket from "../../api/socketio";
 import {
   onMessageReceived,
+  onUpdateTextReceived,
   updateProgressIndicator,
 } from "../../redux/actions/socketioActions";
 import ClientProgressIndicator from "./ClientProgressIndicator";
@@ -25,9 +26,22 @@ const Socketio = (props) => {
       props.onMessageReceived(connectedClients);
     });
 
+    socket.on("update_text", (clientInfo) => {
+      console.log(clientInfo);
+      const clientId = clientInfo.client_id;
+      const text = clientInfo.text;
+      if (text) {
+        props.onUpdateTextReceived(clientId, text);
+      }
+    });
+
     socket.on("progress", (client) => {
       props.updateProgressIndicator(client.id);
     });
+
+    return () => {
+      console.log("unmount!");
+    };
   }, []);
 
   const populateBoxes = (connectedClients) => {
@@ -49,11 +63,13 @@ const Socketio = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    text: state.typer.text,
     connectedClients: state.socketio.connectedClients,
   };
 };
 
 export default connect(mapStateToProps, {
   onMessageReceived,
+  onUpdateTextReceived,
   updateProgressIndicator,
 })(withStyles(styles)(Socketio));

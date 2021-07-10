@@ -12,7 +12,7 @@ const ClientProgressIndicator = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    quote: state.typer.text.quote,
+    quote: state.typer.text ? state.typer.text.quote : "",
   };
 };
 
