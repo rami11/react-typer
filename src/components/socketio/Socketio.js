@@ -26,22 +26,9 @@ const Socketio = (props) => {
       props.onMessageReceived(connectedClients);
     });
 
-    socket.on("update_text", (clientInfo) => {
-      console.log(clientInfo);
-      const clientId = clientInfo.client_id;
-      const text = clientInfo.text;
-      if (text) {
-        props.onUpdateTextReceived(clientId, text);
-      }
-    });
-
     socket.on("progress", (client) => {
       props.updateProgressIndicator(client.id);
     });
-
-    return () => {
-      console.log("unmount!");
-    };
   }, []);
 
   const populateBoxes = (connectedClients) => {
