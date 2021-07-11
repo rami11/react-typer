@@ -26,8 +26,9 @@ const Typer = ({ text, ...props }) => {
     text &&
       socket.on("connect", () => {
         props.onClientConnected(socket.id);
-        socket.emit("update_text", text);
       });
+
+    text && socket.emit("text_fetched", text);
   }, [text]);
 
   const classes = props.classes;
