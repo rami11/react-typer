@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Container } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import socket from "../../api/socketio";
@@ -10,13 +10,7 @@ import {
 } from "../../redux/actions/socketioActions";
 import ClientProgressIndicator from "./ClientProgressIndicator";
 
-const styles = (theme) => ({
-  box: {
-    ...theme.block,
-    padding: 8,
-    margin: "4px 0",
-  },
-});
+const styles = (theme) => ({});
 
 const Socketio = (props) => {
   console.log("load socket io component!");
@@ -32,14 +26,17 @@ const Socketio = (props) => {
   }, []);
 
   const populateBoxes = (connectedClients) => {
-    return Object.values(connectedClients).map((client, i) => {
-      return (
-        <Box className={props.classes.box} key={i}>
-          <div>{client.id}</div>
-          <ClientProgressIndicator clientId={client.id} />
-        </Box>
-      );
-    });
+    return Object.entries(connectedClients)
+      // .filter(([clientId, _]) => clientId !== socket.id)
+      .map(([clientId, clientInfo], i) => {
+        return (
+          <ClientProgressIndicator
+            key={i}
+            clientId={clientId}
+            text={clientInfo.text}
+          />
+        );
+      });
   };
 
   // const classes = props.classes;
