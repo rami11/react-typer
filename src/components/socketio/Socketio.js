@@ -12,42 +12,39 @@ import ClientProgressIndicator from "./ClientProgressIndicator";
 
 const styles = (theme) => ({});
 
-const Socketio = (props) => {
-  console.log("load socket io component!");
-
+const Socketio = ({ connectedClients, ...props }) => {
   useEffect(() => {
     socket.on("message", (connectedClients) => {
       props.onMessageReceived(connectedClients);
     });
 
-    socket.on("progress", (client) => {
-      props.updateProgressIndicator(client.id);
+    socket.on("progress", ({ clientId, isSuccessPositions }) => {
+      props.updateProgressIndicator(clientId, isSuccessPositions);
     });
   }, []);
 
   const populateBoxes = (connectedClients) => {
-    return Object.entries(connectedClients)
-      // .filter(([clientId, _]) => clientId !== socket.id)
-      .map(([clientId, clientInfo], i) => {
-        return (
-          <ClientProgressIndicator
-            key={i}
-            clientId={clientId}
-            text={clientInfo.text}
-          />
-        );
-      });
+    return (
+      Object.entries(connectedClients)
+        // .filter(([clientId, _]) => clientId !== socket.id)
+        .map(([clientId, clientInfo], i) => {
+          return (
+            <ClientProgressIndicator
+              key={i}
+              clientId={clientId}
+              text={clientInfo.text}
+            />
+          );
+        })
+    );
   };
 
   // const classes = props.classes;
-  return (
-    <Container maxWidth="sm">{populateBoxes(props.connectedClients)}</Container>
-  );
+  return <Container maxWidth="sm">{populateBoxes(connectedClients)}</Container>;
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    text: state.typer.text,
     connectedClients: state.socketio.connectedClients,
   };
 };

@@ -27,18 +27,18 @@ export default (state = initialState, action) => {
 
       return { ...state, connectedClients: newConnectedClients };
     case UPDATE_PROGERSS_INDICATOR:
-      clientId = action.payload.clientId;
+      const clientId1 = action.payload.clientId;
       const isSuccessPositions = action.payload.isSuccessPositions;
 
-      client = state.connectedClients[clientId];
-      newClient = { ...client, isSuccessPositions };
+      const client1 = state.connectedClients[clientId1];
+      const newClient1 = { ...client1, isSuccessPositions };
 
-      newConnectedClients = {
+      const newConnectedClients1 = {
         ...state.connectedClients,
-        [clientId]: newClient,
+        [clientId1]: newClient1,
       };
 
-      return { ...state, connectedClients: newConnectedClients };
+      return { ...state, connectedClients: newConnectedClients1 };
     default:
       return state;
   }

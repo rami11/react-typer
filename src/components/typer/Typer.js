@@ -25,6 +25,7 @@ const Typer = ({ text, ...props }) => {
 
     text &&
       socket.on("connect", () => {
+        console.log('Socket ID:', socket.id);
         props.onClientConnected(socket.id);
       });
 

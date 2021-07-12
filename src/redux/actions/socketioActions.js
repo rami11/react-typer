@@ -12,15 +12,16 @@ export const onMessageReceived = (connectedClients) => (dispatch, getState) => {
   });
 };
 
-export const onUpdateTextReceived = (clientId, text) => (dispatch, getState) => {
-  dispatch({
-    type: UPDATE_TEXT_RECEIVED,
-    payload: {
-      clientId,
-      text,
-    },
-  });
-};
+export const onUpdateTextReceived =
+  (clientId, text) => (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_TEXT_RECEIVED,
+      payload: {
+        clientId,
+        text,
+      },
+    });
+  };
 
 export const broadcastProgress = (clientId) => (dispatch, getState) => {
   const isSuccessPositions = getState().typer.isSuccessPositions;
@@ -28,14 +29,13 @@ export const broadcastProgress = (clientId) => (dispatch, getState) => {
   socket.emit("progress", { clientId, isSuccessPositions });
 };
 
-export const updateProgressIndicator = (clientId) => (dispatch, getState) => {
-  const isSuccessPositions = getState().typer.isSuccessPositions;
-
-  dispatch({
-    type: UPDATE_PROGERSS_INDICATOR,
-    payload: {
-      clientId,
-      isSuccessPositions,
-    },
-  });
-};
+export const updateProgressIndicator =
+  (clientId, isSuccessPositions) => (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_PROGERSS_INDICATOR,
+      payload: {
+        clientId,
+        isSuccessPositions,
+      },
+    });
+  };
