@@ -60,14 +60,15 @@ const Keyboard = withStyles(styles)((props) => {
     props.keyReleased(code);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     const { code } = e.nativeEvent;
     if (
       e.keyCode === 8 &&
       0 < props.currentPosition &&
       props.currentPosition < props.quote.length
     ) {
-      props.backspaceKeyPressed();
+      await props.backspaceKeyPressed();
+      props.broadcastProgress(socket.id);
     }
     props.keyPressed(code);
   };
