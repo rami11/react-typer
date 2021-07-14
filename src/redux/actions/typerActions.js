@@ -8,7 +8,7 @@ import {
   RESET_TYPER,
 } from "./types";
 
-const baseUrl = "http://localhost:8080/api";
+const baseUrl = "http://localhost:8082/api";
 
 export const onClientConnected = (clientId) => (dispatch, getState) => {
   dispatch({
